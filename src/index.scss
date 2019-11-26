@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    font-family: 'Lato', sans-serif;
+}
+
+input, button {
+    border: none;
+    padding: 1em 2em;
+    background: none;
+}
+
+input {
+    background-color: #fff;
+}
+
+small, big {
+    display: block;
+}
+
+hr {
+    margin: 0 1rem ;
+    border: 0;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.primary {
+    color: #CD435F;
+}
+
+button {
+    &.primary, &.secondary {
+        width: 100%;
+        border-radius: 2px;
+        font-size: 1rem;
+    }
+
+    &.primary {
+        color: #fff;
+        background-color: #CD435F;
+    }
+
+    &.secondary {
+        color: #CD435F;
+        border: 1px solid #CD435F;
+    }
+}

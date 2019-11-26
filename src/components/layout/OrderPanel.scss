@@ -1,0 +1,95 @@
+aside.order-panel {
+    display: flex;
+    flex-direction: column;
+
+    background-color: #fff;
+    box-shadow: -1px 0 3px rgba(0, 0, 0, 0.3);
+    
+    .pad {
+        padding: 0.5em 1em;
+    }
+
+    & > header, .order-panel-validation {
+        background-color: #F8F8F8;
+    }
+
+    & > header {
+        & > h2 {
+            color: #CD435F;
+            font: Bold 30px/32px Lato;
+        }
+
+        & > .order-panel-client {
+            margin: 1em 0;
+        }
+    }
+
+    & > .order-panel-credit {
+        & > main {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            big {
+                font-size: 1.8em;
+                font-weight: bold;
+            }
+        }
+
+        & > button {
+            margin: 1em 0;
+        }
+    }
+
+    & > .order-panel-details {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        & > button > img {
+            width: 2em;
+        }
+    }
+
+    & > ul.order-panel-items {
+        list-style: none;
+
+        li > div {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        & > li {
+            padding: 0.5em 0;
+            font-weight: bold;
+
+            & > ul {
+                margin: 0.5em 0;
+                list-style-type: disc;
+
+                & > li {
+                    font-size: 0.9em;
+                    padding: 0.25em 0;
+                    color: rgba(0, 0, 0, 0.7);
+                    text-indent: 1.5em;
+                }
+            }
+        }
+    }
+
+    & > footer {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+        & > .order-panel-total {
+            font-size: 2em;
+
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}

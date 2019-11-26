@@ -1,0 +1,44 @@
+header.dashboard-header {
+    background-color: #CD435F;
+    height: 6em;
+
+    display: flex;
+    flex-direction: row;
+
+    & > button {
+        color: #fff;
+        flex: 1;
+
+        &.special-action {
+            background-color: rgba(0, 0, 0, 0.25);    
+        }
+
+        & > img {
+            display: block;
+            margin: 1em auto;
+            height: 3em;
+            filter: brightness(400%);
+        }
+
+        & > span {
+            font-size: 1.4em;
+        }
+
+        &:focus {
+            background-color: rgba(0, 0, 0, 0.25);
+        }
+    }
+}
+
+.dashboard-content {
+    display: flex;
+
+    & > main {
+        flex: 1 65%;
+    }
+
+    & > aside {
+        flex: 1 35%;
+        height: calc(100vh - 6em);
+    }
+}

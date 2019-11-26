@@ -1,0 +1,51 @@
+.login-container {
+    background-color: #624538;
+    background-image: url('/assets/wood.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    & > .login-form {
+        background-image: url('/assets/board.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+    
+        width: 70%;
+        margin: auto;
+        height: 100vh;
+    
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    
+        & > form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+    
+            padding: 8em;
+    
+            background-image: url('/assets/fieldset-decoration.svg');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+    
+            & > img {
+                position: absolute;
+                width: 10em;
+                transform: translateY(-12em);
+            }
+    
+            input {
+                min-width: 25em;
+            } 
+
+            input, button {
+                margin: 1em 0;
+            }
+    
+            button[type=submit] {
+                transform: translateY(6em);
+            }
+        }
+    }
+}
