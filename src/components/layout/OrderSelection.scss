@@ -1,0 +1,46 @@
+.order-selection {
+
+    @mixin menuItem($color) {
+        border-top: 4px solid $color;
+        & > span { color: $color }
+    }
+
+    & > nav {
+        display: flex;
+        flex-direction: row;
+        overflow-x: scroll;
+        margin: 0 0.5em;
+
+        & > .order-nav-item {
+            margin: 0.5em;
+            padding: 0.5em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            width: calc(33% - 1em);
+
+            background-color: #fff;
+            border-radius: 3px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+
+            & > img {
+                width: 2em;
+                margin-bottom: 0.5em;
+            }
+
+            & > span {
+                font: Bold 20px/30px Lato;
+            }
+
+            &:nth-child(6) { @include menuItem(#79BF3C); }
+            &:nth-child(3) { @include menuItem(#26A1CE); }
+            &:nth-child(2) { @include menuItem(#ED6E35); }
+            &:nth-child(1) { @include menuItem(#EAB72E); }
+            &:nth-child(5) { @include menuItem(#9A2AE0); }
+            &:nth-child(4) { @include menuItem(#E82D67); } 
+        }
+    }
+
+}

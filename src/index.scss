@@ -54,4 +54,23 @@ button {
         color: #CD435F;
         border: 1px solid #CD435F;
     }
+
+    &:focus {
+        outline: none;
+    }
+
+    :not(.dashboard-menu) > &:focus {
+        transform: scale(1.08);
+    }
+}
+
+.columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    &.columns-simple {
+        justify-content: space-between;
+    }
 }

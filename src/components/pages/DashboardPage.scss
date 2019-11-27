@@ -1,4 +1,4 @@
-header.dashboard-header {
+nav.dashboard-menu {
     background-color: #CD435F;
     height: 6em;
 
@@ -35,6 +35,8 @@ header.dashboard-header {
 
     & > main {
         flex: 1 65%;
+        max-width: 65%;
+        background-color: #fafafa;
     }
 
     & > aside {

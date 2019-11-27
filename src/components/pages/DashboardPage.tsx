@@ -2,11 +2,12 @@ import React, { FunctionComponent } from 'react';
 
 import './DashboardPage.scss';
 import OrderPanel from '../layout/OrderPanel';
+import OrderSelection from '../layout/OrderSelection';
 
 const DashboardPage: FunctionComponent = () => {
     return (
         <>
-            <header className="dashboard-header">
+            <nav className="dashboard-menu">
                 <button type="button">
                     <img src="/assets/icons/crossed-knife-and-fork.svg" alt="Fork and Knife" />
                     <span>Commande</span>
@@ -34,13 +35,13 @@ const DashboardPage: FunctionComponent = () => {
 
                 <button type="button" className="special-action">
                     <img src="/assets/icons/turn-off.svg" alt="Clients" />
-                    <span>Logout</span>
+                    <span>Déconnexion</span>
                 </button>
-            </header>
+            </nav>
 
             <div className="dashboard-content">
                 <main>
-                    Test
+                    <OrderSelection />
                 </main>
 
                 <OrderPanel />

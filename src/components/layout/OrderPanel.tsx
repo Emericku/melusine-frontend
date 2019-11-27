@@ -5,8 +5,14 @@ import './OrderPanel.scss';
 const OrderPanel: FunctionComponent = () => {
     return (
         <aside className="order-panel">
-            <header className="pad">
-                <h2>Commande :</h2>
+            <header className="pad-1">
+                <div className="columns columns-simple">
+                    <h2>Commande :</h2>
+
+                    <button type="button">
+                        <img width="20em" src="/assets/icons/trash.svg" alt="Cancel"/>
+                    </button>
+                </div>
 
                 <div className="order-panel-client">
                     <small>Arnold</small>
@@ -15,7 +21,7 @@ const OrderPanel: FunctionComponent = () => {
             </header>
 
             <div className="order-panel-credit pad">
-                <main>
+                <main className="columns">
                     <img src="/assets/icons/tirelire.svg" alt="Tirelire" />
 
                     <div>
@@ -24,26 +30,80 @@ const OrderPanel: FunctionComponent = () => {
                     </div>
                 </main>
 
-                <button className="secondary" type="button">
-                    Créditer le solde
+                <button className="secondary columns" type="button">
+                    Créditer le solde <img width="20em" src="/assets/icons/plus.svg" alt="Crediter"/>
                 </button>
             </div>
 
             <hr/>
 
-            <div className="order-panel-details pad">
-                <p>
-                    Détail (<span className="primary">8 articles</span>)
-                </p>
+            <div className="order-panel-details columns pad">
+                <p>Détail (<span className="primary">8 articles</span>)</p>
 
                 <button type="button">
-                    <img src="/assets/icons/edit.svg" alt="Edit"/>
+                    <img width="20em" src="/assets/icons/edit.svg" alt="Edit"/>
                 </button>
             </div>
 
             <hr/>
 
             <ul className="order-panel-items pad">
+                <li>
+                    <div>
+                        <span>1x Sandwich Mitch</span>
+                        <span>5,00</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <span>1x Coca Light</span>
+                        <span>1,00</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <span>2x Chips salé</span>
+                        <span>2,00</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <span>2x Mefine</span>
+                        <span>2,00</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <span>1x Sandwich Mitch</span>
+                        <span>5,00</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <span>1x Coca Light</span>
+                        <span>1,00</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <span>2x Chips salé</span>
+                        <span>2,00</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <span>2x Mefine</span>
+                        <span>2,00</span>
+                    </div>
+                </li>
+
                 <li>
                     <div>
                         <span>1x Sandwich Mitch</span>
@@ -116,9 +176,9 @@ const OrderPanel: FunctionComponent = () => {
                     <span>12,40€</span>
                 </div>
 
-                <div className="order-panel-validation pad">
-                    <button className="primary" type="button">
-                        Valider la commande
+                <div className="order-panel-validation pad-1">
+                    <button className="primary columns" type="button">
+                        Valider la commande <img width="20em" src="/assets/icons/left-arrow.svg" alt="Valider"/>
                     </button>
                 </div>
             </footer>
