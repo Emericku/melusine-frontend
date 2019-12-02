@@ -21,14 +21,14 @@ const OrderPanel: FunctionComponent = () => {
             </header>
 
             <div className="order-panel-credit pad">
-                <main className="columns">
+                <div className="columns">
                     <img src="/assets/icons/tirelire.svg" alt="Tirelire" />
 
                     <div>
                         <small>Solde disponible:</small>
                         <big>130,00€</big>
                     </div>
-                </main>
+                </div>
 
                 <button className="secondary columns" type="button">
                     Créditer le solde <img width="20em" src="/assets/icons/plus.svg" alt="Crediter"/>
@@ -71,69 +71,6 @@ const OrderPanel: FunctionComponent = () => {
 
                 <li>
                     <div>
-                        <span>2x Mefine</span>
-                        <span>2,00</span>
-                    </div>
-                </li>
-
-                <li>
-                    <div>
-                        <span>1x Sandwich Mitch</span>
-                        <span>5,00</span>
-                    </div>
-                </li>
-
-                <li>
-                    <div>
-                        <span>1x Coca Light</span>
-                        <span>1,00</span>
-                    </div>
-                </li>
-
-                <li>
-                    <div>
-                        <span>2x Chips salé</span>
-                        <span>2,00</span>
-                    </div>
-                </li>
-
-                <li>
-                    <div>
-                        <span>2x Mefine</span>
-                        <span>2,00</span>
-                    </div>
-                </li>
-
-                <li>
-                    <div>
-                        <span>1x Sandwich Mitch</span>
-                        <span>5,00</span>
-                    </div>
-                </li>
-
-                <li>
-                    <div>
-                        <span>1x Coca Light</span>
-                        <span>1,00</span>
-                    </div>
-                </li>
-
-                <li>
-                    <div>
-                        <span>2x Chips salé</span>
-                        <span>2,00</span>
-                    </div>
-                </li>
-
-                <li>
-                    <div>
-                        <span>2x Mefine</span>
-                        <span>2,00</span>
-                    </div>
-                </li>
-
-                <li>
-                    <div>
                         <span>1x Sandwich custom</span>
                         <span>2,40</span>
                     </div>
@@ -167,6 +104,69 @@ const OrderPanel: FunctionComponent = () => {
                             </div>
                         </li>
                     </ul>
+                </li>
+
+                <li>
+                    <div>
+                        <span>2x Mefine</span>
+                        <span>2,00</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <span>1x Sandwich Mitch</span>
+                        <span>5,00</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <span>1x Coca Light</span>
+                        <span>1,00</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <span>2x Chips salé</span>
+                        <span>2,00</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <span>2x Mefine</span>
+                        <span>2,00</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <span>1x Sandwich Mitch</span>
+                        <span>5,00</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <span>1x Coca Light</span>
+                        <span>1,00</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <span>2x Chips salé</span>
+                        <span>2,00</span>
+                    </div>
+                </li>
+
+                <li>
+                    <div>
+                        <span>2x Mefine</span>
+                        <span>2,00</span>
+                    </div>
                 </li>
             </ul>
 

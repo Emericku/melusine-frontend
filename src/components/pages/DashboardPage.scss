@@ -32,11 +32,12 @@ nav.dashboard-menu {
 
 .dashboard-content {
     display: flex;
+    background-color: #fafafa;
 
     & > main {
         flex: 1 65%;
-        max-width: 65%;
-        background-color: #fafafa;
+        height: calc(100vh - 6em);
+        overflow-y: scroll;
     }
 
     & > aside {

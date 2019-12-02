@@ -29,11 +29,9 @@ aside.order-panel {
     }
 
     & > .order-panel-credit {
-        & > main {
-            big {
-                font-size: 1.8em;
-                font-weight: bold;
-            }
+        big {
+            font-size: 1.8em;
+            font-weight: bold;
         }
 
         & > button {
@@ -55,7 +53,6 @@ aside.order-panel {
             font-weight: bold;
 
             & > ul {
-                margin: 0.5em 0;
                 list-style-type: disc;
 
                 & > li {
