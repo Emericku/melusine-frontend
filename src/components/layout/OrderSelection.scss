@@ -63,16 +63,14 @@
             overflow: hidden;
             box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
 
-            & > .order-selection-choice-item-info {
-                display: flex;
-                justify-content: space-between;
-                
+            & > .order-selection-choice-item-info {                
                 & > span {
                     color: #fff;
                     padding: 0.5em;
                     text-align: center;
 
                     &.order-selection-choice-item-stock {
+                        float: left;
                         background-color: #CD435F;
                         border-bottom-right-radius: 6px;
     
@@ -82,6 +80,7 @@
                     }
     
                     &.order-selection-choice-item-price {
+                        float: right;
                         background-color: #26A1CE;
                         border-bottom-left-radius: 6px;
                     }

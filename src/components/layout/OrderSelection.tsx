@@ -69,9 +69,11 @@ const OrderSelection: FunctionComponent = () => {
                     products.filter(product => product.category === current).map((product, index) => (
                         <div key={index} className="order-selection-choice-item" style={{ backgroundImage: `url('${product.image}')` }}>
                             <div className="order-selection-choice-item-info">
-                                <span className={`order-selection-choice-item-stock${product.quantity === 0 ? ' empty' : ''}`}>
-                                    {product.quantity}
-                                </span>
+                                {
+                                    product.quantity && <span className={`order-selection-choice-item-stock${product.quantity === 0 ? ' empty' : ''}`}>
+                                        {product.quantity}
+                                    </span>
+                                }
 
                                 <span className="order-selection-choice-item-price">
                                     {priceFormatter.format(product.price)} 
