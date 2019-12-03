@@ -1,64 +1,90 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useState, useCallback, useEffect } from 'react';
 import './OrderSelection.scss';
+import { priceFormatter } from '../../utils';
+import productService from '../../services/productService';
+
+type Category = 'Custom' | 'Chaud' | 'Froid' | 'Boissons' | 'Desserts';
+
+interface CategoryItem {
+    name: Category;
+    image: string;
+}
+
+const categories: CategoryItem[] = [
+    {
+        name: 'Custom',
+        image: '/assets/icons/restaurant.svg'
+    },
+
+    {
+        name: 'Chaud',
+        image: '/assets/icons/bell-covering-hot-dish.svg'
+    },
+
+    {
+        name: 'Froid',
+        image: '/assets/icons/cyclone.svg'
+    },
+
+    {
+        name: 'Boissons',
+        image: '/assets/icons/orange-juice.svg'
+    },
+
+    {
+        name: 'Desserts',
+        image: '/assets/icons/cup-cake.svg'
+    }
+];
 
 const OrderSelection: FunctionComponent = () => {
+    const [ products, setProducts ] = useState<any[]>([]);
+    const [ current, setCurrent ] = useState<Category>(categories[0].name);
+
+    useEffect(() => {
+        productService.findAll()
+            .then(setProducts)
+            .catch(e => console.error('Error while retrieving products', e));
+    }, []);
+
+    const select = useCallback((category: Category) => () => {
+        setCurrent(category);
+    }, [ setCurrent ]);
+
     return (
         <div className="order-selection">
             <nav>
-                <a href="/dashboard" className="order-selection-nav-item">
-                    <img src="/assets/icons/restaurant.svg" alt="Custom" />
-                    <span>Custom</span>
-                </a>
-
-                <div className="order-selection-nav-item">
-                    <img src="/assets/icons/bell-covering-hot-dish.svg" alt="Chaud" />
-                    <span>Chaud</span>
-                </div>
-
-                <div className="order-selection-nav-item">
-                    <img src="/assets/icons/cyclone.svg" alt="Froid" />
-                    <span>Froid</span>
-                </div>
-
-
-                <div className="order-selection-nav-item">
-                    <img src="/assets/icons/orange-juice.svg" alt="Boissons" />
-                    <span>Boissons</span>
-                </div>
-
-                <div className="order-selection-nav-item">
-                    <img src="/assets/icons/cup-cake.svg" alt="Desserts" />
-                    <span>Desserts</span>
-                </div>
-
-
-                <div className="order-selection-nav-item">
-                    <img src="/assets/icons/menu.svg" alt="Menus" />
-                    <span>Menus</span>
-                </div>
+                {
+                    categories.map((category, index) => (
+                        <button key={index} type="button" className="order-selection-nav-item" onClick={select(category.name)}>
+                            <img src={category.image} alt={category.name} />
+                            <span>{category.name}</span>
+                        </button>
+                    ))
+                }
             </nav>
 
             <div className="order-selection-choice">
-                <div className="order-selection-choice-item" style={{ backgroundImage: `url('/assets/thumbnails/sandwich-froid.png')` }}>
-                    <div className="columns columns-simple">
-                        Sandwich froid 
-                        <img src="/assets/icons/plus.svg" width="15em" alt="Ajout"/>
-                    </div>
-                </div>
+                {
+                    products.filter(product => product.category === current).map((product, index) => (
+                        <div key={index} className="order-selection-choice-item" style={{ backgroundImage: `url('${product.image}')` }}>
+                            <div className="order-selection-choice-item-info">
+                                <span className={`order-selection-choice-item-stock${product.quantity === 0 ? ' empty' : ''}`}>
+                                    {product.quantity}
+                                </span>
 
-                <div className="order-selection-choice-item" style={{ backgroundImage: `url('/assets/thumbnails/sandwich-chaud.png')` }}>
-                    <div className="columns columns-simple">
-                        Sandwich chaud 
-                        <img src="/assets/icons/plus.svg" width="15em" alt="Ajout"/>
-                    </div>
-                </div>
+                                <span className="order-selection-choice-item-price">
+                                    {priceFormatter.format(product.price)} 
+                                </span>
+                            </div>
 
-                <div className="order-selection-choice-item" style={{ backgroundImage: `url('/assets/thumbnails/salade-gege.png')` }}>
-                    <div className="columns columns-simple">
-                        Salade Gégé 
-                        <img src="/assets/icons/plus.svg" width="15em" alt="Ajout"/>
-                    </div>
-                </div>
+                            <div className="order-selection-choice-item-action columns columns-simple">
+                                {product.name}
+                                <img src="/assets/icons/plus.svg" width="15em" alt="Ajout" />
+                            </div>
+                        </div>
+                    ))
+                }
             </div>
         </div>
     );

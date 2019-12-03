@@ -7,7 +7,7 @@ const App: FunctionComponent = () => {
     return (
         <Router>
             <Route exact path="/" component={LoginPage} />
-            <Route exact path="/dashboard" component={DashboardPage} />
+            <Route path="/dashboard" component={DashboardPage} />
         </Router>
     );
 }

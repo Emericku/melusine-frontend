@@ -1,17 +1,20 @@
 import React, { FunctionComponent, useCallback, FormEvent } from 'react';
-import './LoginPage.scss';
 import { useHistory } from 'react-router-dom';
+
+import './LoginPage.scss';
 
 const LoginPage: FunctionComponent = () => {
     const history = useHistory();
 
     const login = useCallback((e: FormEvent) => {
+        e.preventDefault();
+
         history.push('/dashboard');
-    }, [history]);
+    }, [ history ]);
 
     return (
         <div className="login-container">
-            <div className="login-form">
+            <div className="login-form decorations">
                 <form onSubmit={login}>
                     <img src="assets/logo.svg" alt="Logo Melusine" />
 

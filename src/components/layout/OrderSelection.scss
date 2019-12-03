@@ -26,7 +26,7 @@
             border: 1px solid rgba(0, 0, 0, 0.2);
 
             & > img {
-                width: 2em;
+                width: 2rem;
                 margin-bottom: 0.5em;
             }
 
@@ -50,23 +50,49 @@
         flex-direction: row;
         align-content: flex-start;
 
-        & >  .order-selection-choice-item {
+        & > .order-selection-choice-item {
             position: relative;
             margin: 0.5em;
             width: calc(33% - 1em);
             height: 12em;
+            background-color: rgba(0, 0, 0, 0.8);
             background-repeat: no-repeat;
             background-size: 140%;
             background-position: center;
             border-radius: 6px;
             overflow: hidden;
             box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+
+            & > .order-selection-choice-item-info {
+                display: flex;
+                justify-content: space-between;
+                
+                & > span {
+                    color: #fff;
+                    padding: 0.5em;
+                    text-align: center;
+
+                    &.order-selection-choice-item-stock {
+                        background-color: #CD435F;
+                        border-bottom-right-radius: 6px;
+    
+                        &.empty {
+                            background-color: #555555;
+                        }
+                    }
+    
+                    &.order-selection-choice-item-price {
+                        background-color: #26A1CE;
+                        border-bottom-left-radius: 6px;
+                    }
+                }
+            }
             
-            & > div {
-                font-size: 1.1em;
+            & > .order-selection-choice-item-action {
                 position: absolute;
                 bottom: 0;
                 left: 0;
+                font-size: 1.1em;
                 padding: 1em;
                 width: 100%;
                 text-align: center;

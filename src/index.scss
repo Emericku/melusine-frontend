@@ -62,6 +62,10 @@ button {
     :not(.dashboard-menu) > &:focus {
         transform: scale(1.08);
     }
+
+    &:disabled {
+        background-color: #BAB4B6;
+    }
 }
 
 a {
@@ -76,5 +80,31 @@ a {
 
     &.columns-simple {
         justify-content: space-between;
+    }
+}
+
+.decorations {
+    &:before, &:after {
+        content: '';
+        position: absolute;
+        margin: 2em;
+        width: 10em;
+        height: 8em;
+
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+    }
+
+    &:before {
+        top: 0;
+        left: 0;
+        background-image: url('/assets/icons/decoration-steak.svg');
+    }
+
+    &:after {
+        bottom: 0;
+        right: 0;
+        background-image: url('/assets/icons/decoration-brochette.svg');
     }
 }
