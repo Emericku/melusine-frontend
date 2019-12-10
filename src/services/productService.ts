@@ -1,10 +1,14 @@
+import Product from "../models/product.model";
+import { sleep } from "../utils";
+
 class ProductService {
 
-    async findAll() {
-       return [
+    async findAll(): Promise<Product[]> {
+        await sleep(300);
+
+        return [
             { category: 'Custom', name: 'Sandwich froid', image: '/assets/thumbnails/sandwich-froid.png', quantity: 120, price: 3.80 },
             { category: 'Custom', name: 'Sandwich chaud', image: '/assets/thumbnails/sandwich-chaud.png', quantity: 80, price: 1.80 },
-            { category: 'Custom', name: 'Salade Gégé', image: '/assets/thumbnails/salade-gege.png', price: 4.00 },
             { category: 'Chaud', name: 'Pizza', image: '/assets/thumbnails/pizza.png', quantity: 60, price: 3.00 },
             { category: 'Chaud', name: 'Quiche', image: '/assets/thumbnails/quiche.png', quantity: 20, price: 2.80 },
             { category: 'Chaud', name: 'Pâté Lorrain', image: '/assets/thumbnails/pate-lorrain.png', quantity: 40, price: 3.00 },

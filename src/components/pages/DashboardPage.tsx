@@ -1,19 +1,26 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useCallback } from 'react';
 
-import './DashboardPage.scss';
 import OrderPanel from '../layout/OrderPanel';
 import OrderSelection from '../layout/OrderSelection';
-import { RouteComponentProps, Route } from 'react-router-dom';
 import ClientSearch from '../layout/ClientSearch';
+import { RouteComponentProps, Route, NavLink } from 'react-router-dom';
+import { ProductsFetcher } from '../../actions/products.actions';
+import { useDataFetch } from '../../hooks';
+import productService from '../../services/productService';
+
+import './DashboardPage.scss';
 
 const DashboardPage: FunctionComponent<RouteComponentProps> = ({ match }) => {
+    const getAllProducts = useCallback(() => productService.findAll(), []);
+    useDataFetch(getAllProducts, ProductsFetcher);
+
     return (
         <>
             <nav className="dashboard-menu">
-                <a href="/" className="active">
+                <NavLink to="/dashboard">
                     <img src="/assets/icons/crossed-knife-and-fork.svg" alt="Fork and Knife" />
                     <span>Commande</span>
-                </a>
+                </NavLink>
 
                 <a href="/">
                     <img src="/assets/icons/food.svg" alt="Food" />

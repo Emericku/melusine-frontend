@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@gforge/react-typeahead-ts": "^1.0.2",
     "axios": "^0.19.0",
     "node-sass": "^4.13.0",
     "react": "^16.12.0",

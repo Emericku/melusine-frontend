@@ -1,51 +1,14 @@
-import React, { FunctionComponent, useState, useCallback, useEffect } from 'react';
-import './OrderSelection.scss';
+import React, { FunctionComponent, useState, useCallback } from 'react';
 import { priceFormatter } from '../../utils';
-import productService from '../../services/productService';
+import { useAppState } from '../../store';
+import { Category, categories } from '../../models/product.model';
+import Spinner from '../misc/Spinner';
 
-type Category = 'Custom' | 'Chaud' | 'Froid' | 'Boissons' | 'Desserts';
-
-interface CategoryItem {
-    name: Category;
-    image: string;
-}
-
-const categories: CategoryItem[] = [
-    {
-        name: 'Custom',
-        image: '/assets/icons/restaurant.svg'
-    },
-
-    {
-        name: 'Chaud',
-        image: '/assets/icons/bell-covering-hot-dish.svg'
-    },
-
-    {
-        name: 'Froid',
-        image: '/assets/icons/cyclone.svg'
-    },
-
-    {
-        name: 'Boissons',
-        image: '/assets/icons/orange-juice.svg'
-    },
-
-    {
-        name: 'Desserts',
-        image: '/assets/icons/cup-cake.svg'
-    }
-];
+import './OrderSelection.scss';
 
 const OrderSelection: FunctionComponent = () => {
-    const [ products, setProducts ] = useState<any[]>([]);
+    const [ { products } ] = useAppState();
     const [ current, setCurrent ] = useState<Category>(categories[0].name);
-
-    useEffect(() => {
-        productService.findAll()
-            .then(setProducts)
-            .catch(e => console.error('Error while retrieving products', e));
-    }, []);
 
     const select = useCallback((category: Category) => () => {
         setCurrent(category);
@@ -66,11 +29,13 @@ const OrderSelection: FunctionComponent = () => {
 
             <div className="order-selection-choice">
                 {
-                    products.filter(product => product.category === current).map((product, index) => (
+                    products.isLoading ? <Spinner /> : 
+                    products.error ? <div>{products.error}</div> :
+                    products.content.filter(product => product.category === current).map((product, index) => (
                         <div key={index} className="order-selection-choice-item" style={{ backgroundImage: `url('${product.image}')` }}>
                             <div className="order-selection-choice-item-info">
                                 {
-                                    product.quantity && <span className={`order-selection-choice-item-stock${product.quantity === 0 ? ' empty' : ''}`}>
+                                    <span className={`order-selection-choice-item-stock${product.quantity === 0 ? ' empty' : ''}`}>
                                         {product.quantity}
                                     </span>
                                 }
