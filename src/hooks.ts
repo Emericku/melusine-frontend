@@ -1,11 +1,12 @@
-import { Fetcher } from "./models/fetcher.model";
-import { useAppState } from "./store";
-import { useEffect } from "react";
+import { useCallback } from 'react';
+import { useAppState } from './store';
+import { Fetcher } from './models/fetcher.model';
+import { Action } from './reducers';
 
-export const useDataFetch = <MODEL> (execute: () => Promise<MODEL>, fetcher: Fetcher<MODEL, any>): void => {
+export const useDataFetch = <MODEL> (execute: () => Promise<MODEL>, fetcher: Fetcher<MODEL, Action>) => {
     const [ , dispatch ] = useAppState();
 
-    useEffect(() => {
+    return useCallback(() => {
         dispatch(fetcher.started());
 
         execute()

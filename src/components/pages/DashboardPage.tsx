@@ -1,18 +1,24 @@
-import React, { FunctionComponent, useCallback } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 
 import OrderPanel from '../layout/OrderPanel';
 import OrderSelection from '../layout/OrderSelection';
 import ClientSearch from '../layout/ClientSearch';
 import { RouteComponentProps, Route, NavLink } from 'react-router-dom';
-import { ProductsFetcher } from '../../actions/products.actions';
 import { useDataFetch } from '../../hooks';
+import { ProductsFetcher } from '../../actions/products.actions';
 import productService from '../../services/productService';
 
 import './DashboardPage.scss';
 
 const DashboardPage: FunctionComponent<RouteComponentProps> = ({ match }) => {
-    const getAllProducts = useCallback(() => productService.findAll(), []);
-    useDataFetch(getAllProducts, ProductsFetcher);
+    const getProducts = useDataFetch(productService.findAll, ProductsFetcher);
+
+    useEffect(() => {
+        getProducts();
+
+        // const intervalId = setInterval(getProducts, 30 * 1000);
+        // return () => clearInterval(intervalId);
+    }, [ getProducts ]);
 
     return (
         <>

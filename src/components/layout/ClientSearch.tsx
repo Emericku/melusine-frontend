@@ -5,13 +5,16 @@ import { Typeahead } from '@gforge/react-typeahead-ts';
 import './ClientSearch.scss';
 import { UserSearchEntry } from '../../models/user.model';
 import userService from '../../services/userService';
+import { useAppState } from '../../store';
+import { initOrder } from '../../actions/order.actions';
 
 const ClientSearch: FunctionComponent = () => {
-    const history = useHistory();
-
+    const [ , dispatch ] = useAppState();
     const [ results, setResults ] = useState<UserSearchEntry[]>([]);
     const [ selected, setSelected ] = useState<UserSearchEntry | null>(null);
+    
     const autocompleteInput = useRef<HTMLInputElement | undefined>();
+    const history = useHistory();
 
     const searchUser = useCallback((e: FormEvent<HTMLInputElement>) => {
         const { value } = e.currentTarget;
@@ -44,7 +47,7 @@ const ClientSearch: FunctionComponent = () => {
             return false;
         }
 
-        return selected && selected.id && renderUser(selected) === value;
+        return selected && renderUser(selected) === value;
     }, [ selected, renderUser ]);
 
     const startOrder = useCallback((e: FormEvent) => {
@@ -60,14 +63,9 @@ const ClientSearch: FunctionComponent = () => {
             return;
         }
 
-        if (selected === null || !userExists()) {
-            console.log('User does not exist yet');
-        } else {
-            console.log('User already exists');
-        }
-        
-        // history.push('/dashboard/order');
-    }, [ history, selected, userExists ]);
+        dispatch(initOrder(value, selected && userExists() ? selected: undefined));
+        history.push('/dashboard/order');
+    }, [ history, selected, userExists, dispatch ]);
 
     return (
         <div className="client-search decorations">

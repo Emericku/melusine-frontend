@@ -3,4 +3,5 @@ export interface UserSearchEntry {
     firstName: string;
     lastName: string;
     nickName?: string;
+    credit: number;
 }

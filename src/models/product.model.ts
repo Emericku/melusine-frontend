@@ -1,6 +1,7 @@
 export type Category = 'Custom' | 'Chaud' | 'Froid' | 'Boissons' | 'Desserts';
 
 export default interface Product {
+    id: string;
     name: string;
     category: Category;
     image: string;
