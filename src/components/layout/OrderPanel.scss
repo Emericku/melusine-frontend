@@ -39,7 +39,7 @@ aside.order-panel {
     }
 
     & > ul.order-panel-items {
-        overflow-y: scroll;
+        overflow-y: auto;
         list-style: none;
 
         li > div {

@@ -40,7 +40,7 @@ nav.dashboard-menu {
     & > main {
         flex: 1 65%;
         height: calc(100vh - 6em);
-        overflow-y: scroll;
+        overflow-y: auto;
     }
 
     & > aside {

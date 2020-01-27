@@ -8,7 +8,7 @@
     & > nav {
         display: flex;
         flex-direction: row;
-        overflow-x: scroll;
+        overflow-x: auto;
         margin: 0.5em;
 
         & > .order-selection-nav-item {
