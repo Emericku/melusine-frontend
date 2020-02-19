@@ -1,0 +1,10 @@
+.user-list {
+    font: Regular 40px/74px Lato;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5) inset;
+    overflow: auto;
+}

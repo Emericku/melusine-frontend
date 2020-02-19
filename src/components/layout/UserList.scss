@@ -1,0 +1,43 @@
+.user-details {
+    padding: 0.5em;
+    background: 0% 0% no-repeat padding-box;
+    border-bottom: 1px solid #CD435F;
+    border-top: 1px solid #CD435F;
+    border-collapse: collapse; /* removes gap between cells */
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-header {
+    top: 1em;
+    position: sticky;
+    background: #FFFFFF;
+}
+
+h3 {
+    text-align: center;
+}
+
+.user-credit {
+    text-align: center;
+    color: #79BF3C;
+}
+
+.user-nick-name {
+    text-align: center;
+    color: #26A1CE;
+}
+
+.user-section {
+    text-align: center;
+    color: #ED6E35;
+}
+
+h3 {
+    margin: 1em;
+}

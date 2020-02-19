@@ -1,23 +1,23 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import User from '../../models/user.model';
+import userService from '../../services/userService';
+import UserList from '../layout/UserList';
+import './UserPage.scss';
 
-import OrderPanel from '../layout/OrderPanel';
-import OrderSelection from '../layout/OrderSelection';
-import ClientSearch from '../layout/ClientSearch';
-import { RouteComponentProps, Route, NavLink } from 'react-router-dom';
-import { useDataFetch } from '../../hooks';
-import { ProductsFetcher } from '../../actions/products.actions';
-import productService from '../../services/productService';
-import './DashboardPage.scss';
-
-const DashboardPage: FunctionComponent<RouteComponentProps> = ({ match }) => {
-    const getProducts = useDataFetch(productService.findAll, ProductsFetcher);
+const UserPage : FunctionComponent = () => {
+    const [ isLoading, setLoading ] = useState(false);
+    const [ users, setUsers ] = useState<User[]>([]);
+    const [ error, setError ] =  useState("");
 
     useEffect(() => {
-        getProducts();
+        setLoading(true); 
 
-        // const intervalId = setInterval(getProducts, 30 * 1000);
-        // return () => clearInterval(intervalId);
-    }, [ getProducts ]);
+        userService.getUsers()
+            .then(response => setUsers(response.content))
+            .catch(e => setError(e))
+            .finally(() => setLoading(false))
+    }, []);
 
     return (
         <>
@@ -50,13 +50,19 @@ const DashboardPage: FunctionComponent<RouteComponentProps> = ({ match }) => {
 
             <div className="dashboard-content">
                 <main>
-                    <Route exact path={`${match.path}`} component={ClientSearch} />
-                    <Route exact path={`${match.path}/order`} component={OrderSelection} />
+                    <div className="user-list">
+                        { isLoading ? 
+                            'Loading ...' : 
+                            error.length > 0 ? 
+                                error :
+                                <UserList users={users}/> 
+                        }
+                    </div>
+                    <div>
+                    </div>              
                 </main>
-                <Route exact path={`${match.path}/order`} component={OrderPanel} />
             </div>
         </>
     );
-};
-
-export default DashboardPage;
+}
+export default UserPage;
