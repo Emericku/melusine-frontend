@@ -5,3 +5,8 @@ export interface UserSearchEntry {
     nickName?: string;
     credit: number;
 }
+
+export interface ConnectedUser {
+    id: string;
+    email: string;
+}

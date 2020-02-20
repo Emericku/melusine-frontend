@@ -59,10 +59,6 @@ button {
         outline: none;
     }
 
-    :not(.dashboard-menu) > &:focus {
-        transform: scale(1.08);
-    }
-
     &:disabled {
         background-color: #BAB4B6;
     }
@@ -75,11 +71,19 @@ a {
 .columns {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
     align-items: center;
 
-    &.columns-simple {
+    &.space-around {
+        justify-content: space-around;
+    }
+
+    &.space-between {
         justify-content: space-between;
+    }
+
+    &.space-button > * {
+        &:first-child { flex: 1 85%; }
+        &:last-child { flex: 1 15%; }
     }
 }
 

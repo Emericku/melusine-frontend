@@ -4,7 +4,7 @@ import { Typeahead } from '@gforge/react-typeahead-ts';
 
 import './ClientSearch.scss';
 import { UserSearchEntry } from '../../models/user.model';
-import userService from '../../services/userService';
+import userService from '../../services/user.service';
 import { useAppState } from '../../store';
 import { initOrder } from '../../actions/order.actions';
 
@@ -24,7 +24,7 @@ const ClientSearch: FunctionComponent = () => {
         }
         
         userService.findByName(value)
-            .then(page => setResults(page.content))
+            .then(users => setResults(users))
             .catch(e => console.error('Could not retrieve users', e));
     }, [ setResults ]);
 
@@ -92,10 +92,9 @@ const ClientSearch: FunctionComponent = () => {
                     { userExists() && <div className="client-search-name-validation" /> }
                 </div>
 
-                <button className="primary columns" type="submit">
+                <button className="primary columns space-button" type="submit">
                     <span>Passer commande</span>
-
-                    <img width="20em" src="/assets/icons/left-arrow.svg" alt="Valider" />
+                    <span><img width="20em" src="/assets/icons/left-arrow.svg" alt="Valider" /></span>
                 </button>
             </form>
         </div>

@@ -5,7 +5,7 @@ nav.dashboard-menu {
     display: flex;
     flex-direction: row;
 
-    & > a {
+    & > a, button {
         color: #fff;
         flex: 1;
         padding: 1em 2em;

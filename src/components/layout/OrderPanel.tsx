@@ -34,7 +34,7 @@ const OrderPanel: FunctionComponent = () => {
     return (
         <aside className="order-panel">
             <header className="pad-1">
-                <div className="columns columns-simple">
+                <div className="columns space-between">
                     <h2 className="primary">Commande :</h2>
 
                     <button type="button">
@@ -53,7 +53,7 @@ const OrderPanel: FunctionComponent = () => {
             </header>
 
             <div className="order-panel-credit pad">
-                <div className="columns">
+                <div className="columns space-around">
                     <img src="/assets/icons/tirelire.svg" alt="Tirelire" />
 
                     <div>
@@ -62,14 +62,15 @@ const OrderPanel: FunctionComponent = () => {
                     </div>
                 </div>
 
-                <button className="secondary columns" type="button">
-                    Créditer le solde <img width="20em" src="/assets/icons/plus.svg" alt="Crediter"/>
+                <button className="secondary columns space-button" type="button">
+                    <span>Créditer le solde</span>
+                    <span><img width="20em" src="/assets/icons/plus.svg" alt="Crediter"/></span>
                 </button>
             </div>
 
             <hr/>
 
-            <div className="order-panel-details columns pad">
+            <div className="order-panel-details pad columns space-between">
                 <p>Détail (<span className="primary">{order.items.length} article{order.items.length > 1 ? 's' : ''}</span>)</p>
 
                 <button type="button">
@@ -99,8 +100,9 @@ const OrderPanel: FunctionComponent = () => {
                 </div>
 
                 <div className="order-panel-validation pad-1">
-                    <button className="primary columns" type="button" disabled={isDisabled()}>
-                        Valider la commande <img width="20em" src="/assets/icons/left-arrow.svg" alt="Valider"/>
+                    <button className="primary columns space-button" type="button" disabled={isDisabled()}>
+                        <span>Valider la commande</span>
+                        <span><img width="20em" src="/assets/icons/left-arrow.svg" alt="Valider"/></span>
                     </button>
                 </div>
             </footer>

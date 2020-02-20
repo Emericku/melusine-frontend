@@ -55,9 +55,9 @@ const OrderSelection: FunctionComponent = () => {
                                 </span>
                             </div>
 
-                            <div className="order-selection-choice-item-action columns columns-simple">
-                                {product.name}
-                                <img src="/assets/icons/plus.svg" width="15em" alt="Ajout" />
+                            <div className="order-selection-choice-item-action columns space-button">
+                                <span>{product.name}</span>
+                                <span><img src="/assets/icons/plus.svg" width="20em" alt="Ajout" /></span>
                             </div>
                         </div>
                     ))

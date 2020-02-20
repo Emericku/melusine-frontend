@@ -3,7 +3,9 @@ import { OrderAction, OrderActionType } from "../actions/order.actions";
 
 export const orderInitialState: Order = {
     name: '',
-    items: []
+    items: [],
+    // name: 'Jazi',
+    // user: { id: 'mocked-1', firstName: 'Jason', lastName: 'Mangin', nickName: 'Jazi', credit: 120.20 }
 };
 
 export default function orderReducer(prevState = orderInitialState, action: OrderAction) {
@@ -12,7 +14,7 @@ export default function orderReducer(prevState = orderInitialState, action: Orde
             return { ...prevState, name: action.name, user: action.user, items: [] };
 
         case OrderActionType.RESET_ORDER:
-                return { ...prevState, items: [] };
+            return { ...prevState, items: [] };
 
         case OrderActionType.ADD_ITEM_TO_ORDER: {
             const { items } = prevState;

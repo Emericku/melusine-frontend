@@ -34,6 +34,10 @@
                 font: Bold 20px/30px Lato;
             }
 
+            &:focus {
+                transform: scale(1.1);
+            }
+
             &:nth-child(6) { @include menuItem(#79BF3C); }
             &:nth-child(3) { @include menuItem(#26A1CE); }
             &:nth-child(2) { @include menuItem(#ED6E35); }
@@ -91,12 +95,12 @@
                 position: absolute;
                 bottom: 0;
                 left: 0;
-                font-size: 1.1em;
                 padding: 1em;
                 width: 100%;
                 text-align: center;
                 color: #fff;
                 background-color: rgba(0, 0, 0, 0.8);
+                height: 33.33%;
             }
         }
     }

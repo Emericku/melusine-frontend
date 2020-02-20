@@ -3,13 +3,14 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import { AppStateProvider } from '../store';
+import AuthenticatedRoute from './misc/AuthenticatedRoute';
 
 const App: FunctionComponent = () => {
     return (
         <AppStateProvider>
             <Router>
                 <Route exact path="/" component={LoginPage} />
-                <Route path="/dashboard" component={DashboardPage} />
+                <AuthenticatedRoute path="/dashboard" component={DashboardPage} />
             </Router>
         </AppStateProvider>
     );
