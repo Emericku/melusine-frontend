@@ -1,0 +1,28 @@
+h3 {
+  margin: 1em;
+}
+
+.user-form {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+
+.user-form-line {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  margin: 1em;
+}
+
+.user-form-input {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #4a4a4a;
+  border-radius: 4px;
+  text-align: left;
+  font: Regular 17px/21px Lato;
+  color: #4a4a4a;
+  margin: 0.15em;
+  width: 50%;
+}

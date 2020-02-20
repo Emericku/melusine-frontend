@@ -8,6 +8,7 @@ import { useDataFetch } from '../../hooks';
 import { ProductsFetcher } from '../../actions/products.actions';
 import productService from '../../services/productService';
 import './DashboardPage.scss';
+import UserPage from './UserPage';
 
 const DashboardPage: FunctionComponent<RouteComponentProps> = ({ match }) => {
     const getProducts = useDataFetch(productService.findAll, ProductsFetcher);
@@ -37,7 +38,7 @@ const DashboardPage: FunctionComponent<RouteComponentProps> = ({ match }) => {
                     <span>Produits</span>
                 </a>
 
-                <NavLink to="/clients">
+                <NavLink to="/dashboard/clients">
                     <img src="/assets/icons/team.svg" alt="Clients" />
                     <span>Clients</span>
                 </NavLink>
@@ -52,6 +53,8 @@ const DashboardPage: FunctionComponent<RouteComponentProps> = ({ match }) => {
                 <main>
                     <Route exact path={`${match.path}`} component={ClientSearch} />
                     <Route exact path={`${match.path}/order`} component={OrderSelection} />
+                    <Route exact path={`${match.path}/clients`} component={UserPage} />
+
                 </main>
                 <Route exact path={`${match.path}/order`} component={OrderPanel} />
             </div>
