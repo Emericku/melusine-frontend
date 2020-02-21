@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Typeahead } from '@gforge/react-typeahead-ts';
 
 import './ClientSearch.scss';
-import { UserSearchEntry } from '../../models/user.model';
+import { UserSearchEntry } from '../../models/userSearchEntry.model';
 import userService from '../../services/userService';
 import { useAppState } from '../../store';
 import { initOrder } from '../../actions/order.actions';

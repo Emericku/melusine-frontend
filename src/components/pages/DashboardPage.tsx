@@ -7,8 +7,8 @@ import { RouteComponentProps, Route, NavLink } from 'react-router-dom';
 import { useDataFetch } from '../../hooks';
 import { ProductsFetcher } from '../../actions/products.actions';
 import productService from '../../services/productService';
-
 import './DashboardPage.scss';
+import UserPage from './UserPage';
 
 const DashboardPage: FunctionComponent<RouteComponentProps> = ({ match }) => {
     const getProducts = useDataFetch(productService.findAll, ProductsFetcher);
@@ -38,15 +38,10 @@ const DashboardPage: FunctionComponent<RouteComponentProps> = ({ match }) => {
                     <span>Produits</span>
                 </a>
 
-                <a href="/">
+                <NavLink to="/dashboard/clients">
                     <img src="/assets/icons/team.svg" alt="Clients" />
                     <span>Clients</span>
-                </a>
-
-                <a href="/">
-                    <img src="/assets/icons/help.svg" alt="Clients" />
-                    <span>Aide</span>
-                </a>
+                </NavLink>
 
                 <a href="/">
                     <img src="/assets/icons/turn-off.svg" alt="Clients" />
@@ -58,8 +53,9 @@ const DashboardPage: FunctionComponent<RouteComponentProps> = ({ match }) => {
                 <main>
                     <Route exact path={`${match.path}`} component={ClientSearch} />
                     <Route exact path={`${match.path}/order`} component={OrderSelection} />
-                </main>
+                    <Route exact path={`${match.path}/clients`} component={UserPage} />
 
+                </main>
                 <Route exact path={`${match.path}/order`} component={OrderPanel} />
             </div>
         </>

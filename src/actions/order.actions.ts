@@ -1,4 +1,4 @@
-import { UserSearchEntry } from '../models/user.model';
+import { UserSearchEntry } from '../models/userSearchEntry.model';
 
 export enum OrderActionType {
     INIT_ORDER = 'INIT_ORDER',

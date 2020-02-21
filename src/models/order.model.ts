@@ -1,4 +1,4 @@
-import { UserSearchEntry } from "./user.model";
+import { UserSearchEntry } from "./userSearchEntry.model";
 
 interface OrderItem {
     productId: string;

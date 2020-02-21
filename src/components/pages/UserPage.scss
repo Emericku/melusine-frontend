@@ -1,0 +1,17 @@
+.user-list {
+    font: Regular 40px/74px Lato;
+    flex: 1 1;
+    height: 88vh;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5) inset;
+    overflow-y: auto;
+}
+
+.user-form {
+    font: Regular 40px/74px Lato;
+    flex: 1 1;
+}
+
+.user-main {
+    display: flex;
+    flex-wrap: wrap;
+}
