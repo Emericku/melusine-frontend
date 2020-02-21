@@ -23,11 +23,27 @@ class UserService {
     }
 
     async getUsers() : Promise<Page<User>> {
-        axios.defaults.headers.common['Authorization'] = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmci5wb2x5dGVjaCIsImlhdCI6MTU4MjE5MDEzOCwiZXhwIjoxNTgyMjI2MTM4LCJzdWIiOiI4ZmEzYWNhMS1jMGJmLTQ1ODYtYjUxOS1hNzg3OGQ2NTc3YzAiLCJlbWFpbCI6ImVtZXJpYy5ob2VybmVyQGdtYWlsLmNvbSJ9.g7Cm3pHn6H65rU_nFH9uwD4OHucQxF8QI3GdR5eIQ24";
+        axios.defaults.headers.common['Authorization'] = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmci5wb2x5dGVjaCIsImlhdCI6MTU4MjI3MTg1MCwiZXhwIjoxNTgyMzA3ODUwLCJzdWIiOiI4ZmEzYWNhMS1jMGJmLTQ1ODYtYjUxOS1hNzg3OGQ2NTc3YzAiLCJlbWFpbCI6ImVtZXJpYy5ob2VybmVyQGdtYWlsLmNvbSJ9.tANPgb8yMGKbO011EeCPzSmzBzy7nreLbMV6lNEo-Qk";
         axios.defaults.headers.post['Content-Type'] = 'application/json';
         const response = await axios.get(`http://localhost:8080/users`);
         return response.data as Page<User>;
     };
+
+    async createUser(user: User) : Promise<User> {
+        axios.defaults.headers.common['Authorization'] = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJmci5wb2x5dGVjaCIsImlhdCI6MTU4MjI3MTg1MCwiZXhwIjoxNTgyMzA3ODUwLCJzdWIiOiI4ZmEzYWNhMS1jMGJmLTQ1ODYtYjUxOS1hNzg3OGQ2NTc3YzAiLCJlbWFpbCI6ImVtZXJpYy5ob2VybmVyQGdtYWlsLmNvbSJ9.tANPgb8yMGKbO011EeCPzSmzBzy7nreLbMV6lNEo-Qk";
+        axios.defaults.headers.post['Content-Type'] = 'application/json';
+        const body = {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            nickName: user.nickName,
+            credit: user.credit,
+            section : user.section,
+            isMembership: user.isMembership,
+            account: null
+        }
+        const response = await axios.post(`http://localhost:8080/users`, body);
+        return response.data as User;
+    }
 
 }
 

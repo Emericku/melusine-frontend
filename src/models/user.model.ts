@@ -1,10 +1,12 @@
+import { Section } from './section.model';
+
 export default interface User {
-    id: string;
+    id?: string;
     firstName: string;
     lastName: string;
     nickName?: string;
     credit: number;
-    section : string;
+    section : Section;
     isMembership: boolean;
     createdAt?: string;
     updatedAt?: string;

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState, useCallback } from 'react';
 import User from '../../models/user.model';
 import userService from '../../services/userService';
 import UserList from '../layout/UserList';
@@ -19,6 +19,11 @@ const UserPage: FunctionComponent = () => {
             .finally(() => setLoading(false))
     }, []);
 
+    const addUser = useCallback((user: User) => {
+        userService.createUser(user)
+            .catch(e => setError(e));
+    }, [])
+
     return (
         <div className="user-main">
             <div className="user-list">
@@ -30,7 +35,7 @@ const UserPage: FunctionComponent = () => {
                 }
             </div>
             <div className="user-form">
-                <UserForm />
+                <UserForm addUser= {addUser} />
             </div>
         </div>
     );
