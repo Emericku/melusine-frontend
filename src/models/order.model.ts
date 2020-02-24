@@ -1,6 +1,6 @@
 import { UserSearchEntry } from "./user.model";
 
-interface OrderItem {
+export interface OrderItem {
     productId: string;
     name: string;
     price: number;
@@ -11,4 +11,22 @@ export interface Order {
     name: string;
     user?: UserSearchEntry;
     items: OrderItem[];
+}
+
+export class OrderRequest {
+
+    constructor(
+        public items: {
+            productId: string;
+            quantity: number;
+        }[],
+        public name: string,
+        public userId?: string
+    ) {}
+
+}
+
+export interface OrderResponse {
+    id: string;
+    total: number;
 }

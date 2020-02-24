@@ -1,14 +1,8 @@
 .order-selection {
 
-    @mixin menuItem($color) {
-        border-top: 4px solid $color;
-        & > span { color: $color }
-    }
-
     & > nav {
         display: flex;
         flex-direction: row;
-        overflow-x: auto;
         margin: 0.5em;
 
         & > .order-selection-nav-item {
@@ -20,6 +14,7 @@
             justify-content: center;
             text-align: center;
             width: calc(33% - 1em);
+            border-top: 4px solid transparent;
 
             background-color: #fff;
             border-radius: 3px;
@@ -32,18 +27,12 @@
 
             & > span {
                 font: Bold 20px/30px Lato;
+                text-transform: capitalize;
             }
 
-            &:focus {
+            &.current {
                 transform: scale(1.1);
             }
-
-            &:nth-child(6) { @include menuItem(#79BF3C); }
-            &:nth-child(3) { @include menuItem(#26A1CE); }
-            &:nth-child(2) { @include menuItem(#ED6E35); }
-            &:nth-child(1) { @include menuItem(#EAB72E); }
-            &:nth-child(5) { @include menuItem(#9A2AE0); }
-            &:nth-child(4) { @include menuItem(#E82D67); } 
         }
     }
 

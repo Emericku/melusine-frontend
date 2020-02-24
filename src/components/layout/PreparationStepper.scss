@@ -1,0 +1,97 @@
+.preparation-stepper {
+
+    & > header, & > footer {
+        height: 10vh;
+    }
+
+    & > header {
+        display: flex;
+        align-items: center;
+        background-color: #FAFAFA;
+        padding: 1em;
+        margin: 2em 0;
+
+        & > h5 {
+            font-size: 1.3em;
+            font-weight: bold;
+            flex: 1 15%;
+        }
+
+        & > nav {
+            display: flex;
+            flex: 1 85%;
+            align-items: center;
+            justify-content: center;
+        
+            & > .preparation-stepper-step {
+                border-radius: 50%;
+                border: 2px solid #888787;
+
+                & > img {
+                    width: 3.2em;
+                    height: 3.2em;
+                    padding: 0.6em;
+                }
+
+                &.current {
+                    background-color: #CD435F;
+                    border-color: #CD435F;
+                    & > img { filter: brightness(400%); }
+                }
+            }
+
+            & > .preparation-stepper-link {
+                height: 0.2em;
+                width: 10%;
+                background-color: #888787;
+            }
+    
+        }
+    }
+
+    & > .preparation-stepper-total {
+        font-size: 1.5em;
+        text-align: center;
+    }
+
+    & > main {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        min-height: 50vh;
+
+        & > .ingredient-item {
+            padding: 1em;
+            margin: 1em;
+            border: 2px solid #DADADA;
+            border-radius: 3px;
+            flex: 1 calc(33.33% - 8em);
+            
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            justify-content: center;
+            min-height: 12em;
+
+            & > .ingredient-item-name {
+                margin-top: 0.5em;
+                font-size: 1.3em;
+                font-weight: bold;
+            }
+
+            &.empty {
+                filter: grayscale(1);
+            }
+
+            &.added {
+                border-color: #CD435F;
+                color: #CD435F;
+            }
+        }
+    }
+
+    & > footer > button {
+        width: 33.33%;
+    }
+
+}

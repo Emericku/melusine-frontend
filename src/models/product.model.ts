@@ -1,42 +1,26 @@
-export type Category = 'Custom' | 'Chaud' | 'Froid' | 'Boissons' | 'Desserts';
-
-export default interface Product {
+export interface Product {
     id: string;
     name: string;
-    category: Category;
-    image: string;
+    category: string;
+    price?: number;
     quantity: number;
-    price: number;
-}
-
-interface CategoryItem {
-    name: Category;
     image: string;
 }
 
-export const categories: CategoryItem[] = [
-    {
-        name: 'Custom',
-        image: '/assets/icons/restaurant.svg'
-    },
+export interface ProductCategory {
+    name: string;
+    icon: string;
+    color: string;
+}
 
-    {
-        name: 'Chaud',
-        image: '/assets/icons/bell-covering-hot-dish.svg'
-    },
+export class ProductCreationRequest {
 
-    {
-        name: 'Froid',
-        image: '/assets/icons/cyclone.svg'
-    },
+    constructor(
+        public name: string,
+        public category: string,
+        public ingredients: string[],
+        public isOriginal: boolean,
+        public image?: string
+    ) {}
 
-    {
-        name: 'Boissons',
-        image: '/assets/icons/orange-juice.svg'
-    },
-
-    {
-        name: 'Desserts',
-        image: '/assets/icons/cup-cake.svg'
-    }
-];
+}

@@ -1,40 +1,53 @@
 import React, { FunctionComponent, useCallback, FormEvent, useState, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useAppState } from '../../store';
+import { useChangeTitle, useToast } from '../../hooks';
 import { Typeahead } from '@gforge/react-typeahead-ts';
-
-import './ClientSearch.scss';
 import { UserSearchEntry } from '../../models/user.model';
 import userService from '../../services/user.service';
-import { useAppState } from '../../store';
 import { initOrder } from '../../actions/order.actions';
 
-const ClientSearch: FunctionComponent = () => {
-    const [ , dispatch ] = useAppState();
-    const [ results, setResults ] = useState<UserSearchEntry[]>([]);
-    const [ selected, setSelected ] = useState<UserSearchEntry | null>(null);
-    
-    const autocompleteInput = useRef<HTMLInputElement | undefined>();
-    const history = useHistory();
+import './ClientSearch.scss';
+import { priceFormatter } from '../../utils';
 
-    const searchUser = useCallback((e: FormEvent<HTMLInputElement>) => {
+const ClientSearch: FunctionComponent = () => {
+    const history = useHistory();
+    const [ , dispatch ] = useAppState();
+    const createToast = useToast();
+    const [ results, setResults ] = useState<UserSearchEntry[]>([]);
+    const [ selected, setSelected ] = useState<UserSearchEntry | null>(null);    
+    const autocompleteInput = useRef<HTMLInputElement | undefined>();
+
+    useChangeTitle('Recherche');
+
+    const selectUser = useCallback((opt) => {
+        setSelected(opt as UserSearchEntry);
+    }, [ setSelected ]);
+
+    const clearUser = useCallback(() => {
+        setSelected(null);
+    }, [ setSelected ]);
+
+    const searchUser = useCallback(async (e: FormEvent<HTMLInputElement>) => {
+        clearUser();
+
         const { value } = e.currentTarget;
 
         if (value.length < 3) {
             return;
         }
         
-        userService.findByName(value)
-            .then(users => setResults(users))
-            .catch(e => console.error('Could not retrieve users', e));
-    }, [ setResults ]);
+       try {
+           const users = await userService.findByName(value);
+           setResults(users);
+       } catch (e) {
+           createToast('error', e.response ? e.response.data.message : "Le serveur n'est pas disponible");
+       }
+    }, [ clearUser, setResults, createToast ]);
 
-    const renderUser = useCallback(({ firstName, lastName, nickName }) => {
-        return `${firstName} ${lastName}${nickName ? ` dit ${nickName}` : ''}`;
+    const renderUser = useCallback(({ firstName, lastName, nickName, credit }) => {
+        return `${firstName} ${lastName}${nickName ? ` dit ${nickName} (${priceFormatter.format(credit)})` : ''}`;
     }, []);
-
-    const selectUser = useCallback((opt) => {
-        setSelected(opt as UserSearchEntry);
-    }, [ setSelected ]);
 
     const userExists = useCallback(() => {
         if (!autocompleteInput.current) {
@@ -67,13 +80,16 @@ const ClientSearch: FunctionComponent = () => {
         history.push('/dashboard/order');
     }, [ history, selected, userExists, dispatch ]);
 
+    const clearSelection = useCallback(() => {
+        history.push('/');
+    }, [ history ]);
+
     return (
         <div className="client-search decorations">
             <h2>Rechercher un client</h2>
 
             <p>
                 Avant de prendre commande, veuillez rechercher le client en complétant le champ ci-dessous. 
-                Ajouter le s’il n’existe pas.
             </p>
 
             <form onSubmit={startOrder}>
@@ -90,6 +106,7 @@ const ClientSearch: FunctionComponent = () => {
                         onOptionSelected={selectUser}
                     />
                     { userExists() && <div className="client-search-name-validation" /> }
+                    { selected && <button type="button" onClick={clearSelection}>×</button> }
                 </div>
 
                 <button className="primary columns space-button" type="submit">

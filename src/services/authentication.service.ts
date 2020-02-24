@@ -6,13 +6,13 @@ import { ConnectedUser } from '../models/user.model';
 
 class AuthenticationService {
 
-    static readonly MELUSINE_STORAGE_KEY = 'melusine-token';
+    static readonly TOKEN_STORAGE_KEY = `${config.appName?.toLowerCase()}-token`;
 
     private token?: string;
     private claims?: AuthenticationClaims;
 
     constructor() {
-        const token = localStorage.getItem(AuthenticationService.MELUSINE_STORAGE_KEY);
+        const token = localStorage.getItem(AuthenticationService.TOKEN_STORAGE_KEY);
 
         if (token) {
             this.token = token;
@@ -23,24 +23,24 @@ class AuthenticationService {
             this.clear();
         }
 
-        axios.interceptors.request.use((config) => {
+        axios.interceptors.request.use((axiosRequestConfig) => {
             if (this.token) {
-                config.headers.Authorization = `Bearer ${this.token}`;
+                axiosRequestConfig.headers.Authorization = `Bearer ${this.token}`;
             }
 
-            return config;
+            return axiosRequestConfig;
         });
     }
 
     async authenticate(email: string, password: string): Promise<ConnectedUser> {
-        const { data: authentication } = await axios.post<AuthenticationResponse>(`${config.backendUrl}/auth/token`, {
+        const { data: authentication } = await axios.post<AuthenticationResponse>(`${config.backendUrl}/auth`, {
             email,
             password
         });
 
         this.token = authentication.accessToken;
         this.claims = jwtDecode<AuthenticationClaims>(this.token);
-        localStorage.setItem(AuthenticationService.MELUSINE_STORAGE_KEY, this.token);
+        localStorage.setItem(AuthenticationService.TOKEN_STORAGE_KEY, this.token);
 
         return this.getConnectedUser();
     }
@@ -62,7 +62,7 @@ class AuthenticationService {
     clear() {
         this.token = undefined;
         this.claims = undefined;
-        localStorage.removeItem(AuthenticationService.MELUSINE_STORAGE_KEY);
+        localStorage.removeItem(AuthenticationService.TOKEN_STORAGE_KEY);
     }
 
     getConnectedUser(): ConnectedUser {

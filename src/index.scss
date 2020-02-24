@@ -85,6 +85,11 @@ a {
         &:first-child { flex: 1 85%; }
         &:last-child { flex: 1 15%; }
     }
+
+    &.space-button-reverse > * {
+        &:first-child { flex: 1 15%; }
+        &:last-child { flex: 1 85%; }
+    }
 }
 
 .decorations {
@@ -111,4 +116,12 @@ a {
         right: 0;
         background-image: url('/assets/icons/decoration-brochette.svg');
     }
+}
+
+.mirror {
+    transform: rotate(180deg);
+}
+
+.brighten {
+    filter: brightness(400%);
 }

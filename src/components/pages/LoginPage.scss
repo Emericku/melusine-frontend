@@ -37,20 +37,19 @@
             & > img {
                 position: absolute;
                 width: 10em;
-                transform: translateY(-12em);
+                transform: translateY(-15em);
             }
     
             input {
-                min-width: 25em;
-            } 
-
-            input, button {
+                width: 18em;
+                font-size: 1em;
                 margin: 1em 0;
-            }
+            } 
     
             button[type=submit] {
+                margin: 1em 0;
                 max-width: 18em;
-                transform: translateY(6em);
+                transform: translateY(3em);
             }
         }
     }

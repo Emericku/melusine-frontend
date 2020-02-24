@@ -1,0 +1,33 @@
+.credit-charger {
+
+    & > main {
+        min-height: 30vh;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4em;
+
+        & > .credit-charger-input {
+            & > input[type=number] {
+                padding: 0 0 1em 0;
+                margin: 2em 1em;
+                font-size: 1.4rem;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+                text-align: center;
+
+                &:focus { outline: none; }
+            }
+        }
+    }
+
+    & > footer {
+        min-height: 10vh;
+
+        & > button {
+            width: 33.33%;
+        }
+    }
+
+}

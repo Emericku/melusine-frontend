@@ -42,22 +42,25 @@ aside.order-panel {
         overflow-y: auto;
         list-style: none;
 
-        li > div {
-            display: flex;
-            justify-content: space-between;
-        }
-
         & > li {
             padding: 0.5em 0;
             font-weight: bold;
 
-            & > ul {
-                list-style-type: disc;
+            & > .order-panel-item {
+                display: flex;
+                align-items: center;
 
-                & > li {
-                    padding: 0.25em 0;
-                    color: rgba(0, 0, 0, 0.7);
-                    text-indent: 1.5em;
+                & > *:first-child {
+                    flex: 1 60%;
+                }
+
+                & > *:last-child {
+                    flex: 1 10%;
+                }
+
+                & > button {
+                    font-size: 1.5em;
+                    padding: 0;
                 }
             }
         }

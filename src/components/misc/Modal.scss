@@ -1,0 +1,31 @@
+.modal {
+    position: fixed;
+    z-index: 9998;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    width: 80%;
+    min-height: 50vh;
+    padding: 2em;
+    background-color: #fff;
+    box-shadow: 0 0 0 9999px rgba(0,0,0,0.7);
+    border-radius: 6px;
+
+    & > header {
+        position: relative;
+
+        & > h3 {
+            font-weight: 200;
+            font-size: 2em;
+        }
+
+        & > button.modal-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 0;
+            font-size: 2em;
+        }
+    }
+}
