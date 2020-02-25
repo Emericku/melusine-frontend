@@ -1,4 +1,4 @@
-import { Product, ProductCategory, ProductCreationRequest } from "../models/product.model";
+import { Product, ProductCategory, ProductResponse, ProductRequest } from "../models/product.model";
 import axios from "axios";
 import config from "../config";
 
@@ -14,9 +14,23 @@ class ProductService {
         return products;
     }
 
-    async createProduct(request: ProductCreationRequest): Promise<Product> {
+    async createProduct(request: ProductRequest): Promise<Product> {
         const { data: product } = await axios.post<Product>(`${config.backendUrl}/products`, request);
         return product;
+    }
+
+    async getProducts() : Promise<ProductResponse[]> {
+        const { data: product } = await axios.get<ProductResponse[]>(`${config.backendUrl}/products`);
+        return product;
+    };
+
+    async updateProduct(productRequest: ProductRequest) : Promise<ProductResponse> {
+        const { data : product} = await axios.put<ProductResponse>(`${config.backendUrl}/products/${productRequest.id}`, productRequest);
+        return product;
+    }
+
+    async deleteProduct(id: string) : Promise<void> {
+        await axios.delete(`${config.backendUrl}/products/${id}`);
     }
 
 }

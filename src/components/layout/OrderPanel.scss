@@ -1,85 +1,86 @@
 aside.order-panel {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    background-color: #fff;
-    box-shadow: -1px 0 3px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  box-shadow: -1px 0 3px rgba(0, 0, 0, 0.3);
 
-    & > header, .order-panel-validation {
-        background-color: #F8F8F8;
+  & > header,
+  .order-panel-validation {
+    background-color: #f8f8f8;
+  }
+
+  & > header {
+    padding: 0.5em;
+
+    h2 {
+      font: Bold 28px Lato;
+    }
+  }
+
+  & > .order-panel-credit {
+    padding: 0.5em;
+
+    big {
+      font-size: 1.8em;
+      font-weight: bold;
     }
 
-    & > header {
-        padding: 0.5em;
+    & > button {
+      margin: 1em auto;
+      width: 85%;
+    }
+  }
 
-         h2 {
-            font: Bold 28px Lato;
+  & > .order-panel-details {
+    padding: 0.5em 1em;
+  }
+
+  & > ul.order-panel-items {
+    overflow-y: auto;
+    list-style: none;
+    padding: 1em;
+
+    & > li {
+      font-weight: bold;
+
+      & > .order-panel-item {
+        display: flex;
+        align-items: center;
+        padding: 0.2em 0;
+
+        & > *:first-child {
+          flex: 1 60%;
         }
-    }
 
-    & > .order-panel-credit {
-        padding: 0.5em;
-        
-        big {
-            font-size: 1.8em;
-            font-weight: bold;
+        & > *:last-child {
+          flex: 1 10%;
         }
 
         & > button {
-            margin: 1em auto;
-            width: 85%;
+          font-size: 1.5em;
+          padding: 0;
         }
+      }
+    }
+  }
+
+  & > footer {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    & > .order-panel-total {
+      padding: 0.5em;
+      font-size: 2em;
+
+      display: flex;
+      justify-content: space-between;
     }
 
-    & > .order-panel-details {
-        padding: 0.5em 1em;
+    & > .order-panel-validation {
+      padding: 0.5em;
     }
-
-    & > ul.order-panel-items {
-        overflow-y: auto;
-        list-style: none;
-        padding: 1em;
-
-        & > li {
-            font-weight: bold;
-
-            & > .order-panel-item {
-                display: flex;
-                align-items: center;
-                padding: 0.2em 0;
-
-                & > *:first-child {
-                    flex: 1 60%;
-                }
-
-                & > *:last-child {
-                    flex: 1 10%;
-                }
-
-                & > button {
-                    font-size: 1.5em;
-                    padding: 0;
-                }
-            }
-        }
-    }
-
-    & > footer {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-
-        & > .order-panel-total {
-            padding: 0.5em;
-            font-size: 2em;
-
-            display: flex;
-            justify-content: space-between;
-        }
-
-        & > .order-panel-validation {
-            padding: 0.5em;
-        }
-    }
+  }
 }

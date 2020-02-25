@@ -6,6 +6,9 @@ import { AppStateProvider } from '../store';
 import AuthenticatedRoute from './misc/AuthenticatedRoute';
 import ToastZone from './misc/ToastZone';
 import DeliveryPage from './pages/DeliveryPage';
+import ClientPage from './pages/ClientPage';
+import ProductPage from './pages/ProductPage';
+import IngredientPage from './pages/IngredientPage';
 
 const App: FunctionComponent = () => {
     useEffect(() => {
@@ -27,6 +30,15 @@ const App: FunctionComponent = () => {
                     <div className="page-wrapper">
                         <DeliveryPage withInteractions={false} />
                     </div>
+                </Route>
+                <Route exact path="/products">
+                    <ProductPage />
+                </Route>                
+                <Route exact path="/ingredients">
+                    <IngredientPage />
+                </Route>
+                <Route exact path="/clients">
+                    <ClientPage />
                 </Route>
             </Router>
         </AppStateProvider>

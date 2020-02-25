@@ -5,6 +5,7 @@
   "dependencies": {
     "@gforge/react-typeahead-ts": "^1.0.2",
     "axios": "^0.19.0",
+    "formik": "^2.1.4",
     "jwt-decode": "^2.2.0",
     "node-sass": "^4.13.1",
     "react": "^16.12.0",

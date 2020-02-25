@@ -72,7 +72,8 @@ const DeliveryPage: FunctionComponent<DeliveryPageProps> = ({ withInteractions }
         }
 
         setPageRequest(pageRequest.next());
-    }, [ pageResponse, pageRequest ]);
+        fetchOrderItems(true);
+    }, [ pageResponse, pageRequest, fetchOrderItems ]);
 
     const updateOrderItem = useCallback(async (orderItem: OrderItemResponse, status: OrderItemStatus, message: string) => {
         try {
@@ -103,8 +104,8 @@ const DeliveryPage: FunctionComponent<DeliveryPageProps> = ({ withInteractions }
 
                         {
                             withInteractions && <div className="delivery-pagination columns space-around">
-                                <button type="button" className="secondary" onClick={nextPage} disabled={pageResponse?.first}>&laquo; Précédent</button>
-                                <button type="button" className="secondary" onClick={previousPage} disabled={pageResponse?.last}>Suivant &raquo;</button>
+                                <button type="button" className="secondary" onClick={previousPage} disabled={pageResponse?.first}>&laquo; Précédent</button>
+                                <button type="button" className="secondary" onClick={nextPage} disabled={pageResponse?.last}>Suivant &raquo;</button>
                             </div>
                         }
 
