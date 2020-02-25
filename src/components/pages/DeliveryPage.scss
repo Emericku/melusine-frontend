@@ -16,32 +16,34 @@
     }
 
     & > .delivery-order-items {
-        & > .delivery-order-item {
-            display: flex;
-            padding: 0.5em;
-            margin: 1em 0;
-            border: 1px solid rgba(0, 0, 0, 0.6);
+        padding: 1em 0;
 
-            & > .delivery-order-item-client, & > .delivery-order-item-product, & > .delivery-order-item-ingredients, & > .delivery-order-item-actions {
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-                overflow: hidden;
+        & > table {
+            width: 100%;
+            border-collapse: collapse;
+
+            th, td {
+                border: 1px solid $borderColor;
+                padding: 0.5em 1em;
             }
 
-            & > .delivery-order-item-client {
-                flex: 1 30%;
+            & > thead > tr > th {
+                text-align: left;
+
+                &:nth-child(1) {
+                    width: 5%;
+                }
+
+                &:nth-child(2), &:nth-child(3){
+                    width: 10%;
+                }
+
+                &.header-actions {
+                    width: 20%;
+                }
             }
 
-            & > .delivery-order-item-product, & > .delivery-order-item-actions {
-                flex: 1 40%;
-            }
-
-            & > .delivery-order-item-ingredients {
-                flex: 1 100%;
-            }
-
-            & > .delivery-order-item-actions > button {
+            & > tbody > tr > td.delivery-order-item-actions > button {
                 font-size: 2rem;
                 padding: 0 0.5em;
                 

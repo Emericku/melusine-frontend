@@ -21,8 +21,10 @@ const DeliveryPage: FunctionComponent<DeliveryPageProps> = ({ withInteractions }
     const [ refreshDate, setRefreshDate ] = useState<Date>();
     const createToast = useToast();
 
-    const fetchOrderItems = useCallback(() => {
-        setLoading(true);
+    const fetchOrderItems = useCallback((showLoader: boolean) => {
+        if (showLoader) {
+            setLoading(true);
+        }
 
         return orderService.getOrderItems(pageRequest)
             .then(
@@ -50,7 +52,7 @@ const DeliveryPage: FunctionComponent<DeliveryPageProps> = ({ withInteractions }
     }, [ pageRequest, createToast ]);
 
     useEffect(() => {
-        fetchOrderItems()
+        fetchOrderItems(true)
             .then(() => pollOrderItems());
 
         return () => clearTimeout(pollingId.current);
@@ -76,18 +78,18 @@ const DeliveryPage: FunctionComponent<DeliveryPageProps> = ({ withInteractions }
         try {
             await orderService.updateOrderItemStatus(orderItem.id, status);
             createToast('success', message);
-            fetchOrderItems();
+            fetchOrderItems(false);
         } catch (e) {
             createToast('error', e.response ? e.response.data.message : "Le serveur n'est pas disponible");
-        } 
+        }
     }, [ createToast, fetchOrderItems ]);
 
     const deliverOrderItem = useCallback((orderItem: OrderItemResponse) => () => {
-        updateOrderItem(orderItem, OrderItemStatus.DELIVER, `${orderItem.productName} prêt pour ${orderItem.clientName}`);
+        updateOrderItem(orderItem, OrderItemStatus.DELIVER, `${orderItem.productName} prêt(e) pour ${orderItem.clientName}`);
     }, [ updateOrderItem ]);
 
     const cancelOrderItem = useCallback((orderItem: OrderItemResponse) => () => {
-        updateOrderItem(orderItem, OrderItemStatus.CANCEL, `${orderItem.productName} annulé pour ${orderItem.clientName}`);
+        updateOrderItem(orderItem, OrderItemStatus.CANCEL, `${orderItem.productName} annulé(e) pour ${orderItem.clientName}`);
     }, [ updateOrderItem ]);
 
     return (
@@ -110,31 +112,36 @@ const DeliveryPage: FunctionComponent<DeliveryPageProps> = ({ withInteractions }
                             {
                                 pageResponse?.content.length === 0 ?
                                     'Aucune commande' :
-                                    pageResponse?.content.map(item => (
-                                        <div className="delivery-order-item" key={item.id}>
-                                            <div className="delivery-order-item-client">
-                                                {item.clientName}
-                                            </div>
-
-                                            <div className="delivery-order-item-product primary">
-                                                {item.productName}
-                                            </div>
-
-                                            <div className="delivery-order-item-ingredients">
-                                                {
-                                                    item.ingredients.length > 1 &&
-                                                        <span>Ingrédients : {item.ingredients && item.ingredients.join(', ')}</span>
-                                                }
-                                            </div>
-
-                                            {
-                                                withInteractions && <div className="delivery-order-item-actions">
-                                                    <button type="button" onClick={deliverOrderItem(item)}>✓</button>
-                                                    <button type="button" onClick={cancelOrderItem(item)}>×</button>
-                                                </div>
-                                            }
-                                        </div>
-                                    ))
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Client</th>
+                                                <th>Produit</th>
+                                                <th>Ingrédients</th>
+                                                { withInteractions && <th className="header-actions">Actions</th> }
+                                           </tr>
+                                        </thead>
+                                        <tbody>{
+                                            pageResponse?.content.map((item, index) => (
+                                                <tr key={index}>
+                                                    <td>{index + 1}</td>
+                                                    <td>{item.clientName}</td>
+                                                    <td>{item.productName}</td>
+                                                    <td>{
+                                                        item.ingredients.length > 1 &&
+                                                        <span>{item.ingredients && item.ingredients.join(', ')}</span>
+                                                    }</td>
+                                                    {
+                                                        withInteractions && <td className="delivery-order-item-actions">
+                                                            <button type="button" onClick={deliverOrderItem(item)}>✓</button>
+                                                            <button type="button" onClick={cancelOrderItem(item)}>×</button>
+                                                        </td>
+                                                    }
+                                                </tr>
+                                            ))
+                                        }</tbody>
+                                    </table>
                             }
                         </div>
                     </>
