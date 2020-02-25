@@ -5,6 +5,7 @@ import DashboardPage from './pages/DashboardPage';
 import { AppStateProvider } from '../store';
 import AuthenticatedRoute from './misc/AuthenticatedRoute';
 import ToastZone from './misc/ToastZone';
+import DeliveryPage from './pages/DeliveryPage';
 
 const App: FunctionComponent = () => {
     useEffect(() => {
@@ -22,6 +23,11 @@ const App: FunctionComponent = () => {
                 <ToastZone />
                 <Route exact path="/" component={LoginPage} />
                 <AuthenticatedRoute path="/dashboard" component={DashboardPage} />
+                <Route exact path="/cooking">
+                    <div className="page-wrapper">
+                        <DeliveryPage withInteractions={false} />
+                    </div>
+                </Route>
             </Router>
         </AppStateProvider>
     );

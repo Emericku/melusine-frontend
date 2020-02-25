@@ -16,10 +16,10 @@ import './OrderSelection.scss';
 const OrderSelection: FunctionComponent = () => {
     const pollingId = useRef<any>();
     const [ { products }, dispatch ] = useAppState();
-    const createToast = useToast();
     const [ currentCategory, setCurrentCategory ] = useState('');
-    const [ currentCustom, setCurrentCustom ] = useState<Product | undefined>();
+    const [ currentCustom, setCurrentCustom ] = useState<Product>();
     const { isModalOpened, toggleModal } = useModal();
+    const createToast = useToast();
 
     useChangeTitle('Commande');
 
@@ -113,7 +113,7 @@ const OrderSelection: FunctionComponent = () => {
                             onClick={selectCategory(category.name)}
                             style={{ borderColor: category.color, color: category.color }}
                         >
-                            <img src={category.icon} alt={category.name} />
+                            <img src={`data:image/svg+xml;base64, ${category.icon}`} alt={category.name} />
                             <span>{category.name.toLowerCase()}</span>
                         </button>
                     ))
@@ -128,7 +128,7 @@ const OrderSelection: FunctionComponent = () => {
                                 <div
                                     key={index}
                                     className="order-selection-choice-item"
-                                    style={{ backgroundImage: `url('${product.image}')` }}
+                                    style={{ backgroundImage: `url('data:image/png;base64, ${product.image}')` }}
                                     onClick={handleItem(product)}
                                 >
                                     <div className="order-selection-choice-item-info">

@@ -60,6 +60,8 @@ export const useAuthExpirationRedirection = () => {
                     const customError = { ...error, response: responseOverride };
                     return Promise.reject(customError);
                 }
+
+                return Promise.reject(error);
             }
         )
     }, [ dispatch ]);

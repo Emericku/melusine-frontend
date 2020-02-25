@@ -47,15 +47,23 @@ const OrderPanel: FunctionComponent = () => {
     }, [ order, computePrice ]);
 
     const submitOrder = useCallback(async () => {
+        const orderItems: string[] = [];
+        
+        order.items.forEach(item => {
+            for (let i = 0; i < item.quantity; i++) {
+                orderItems.push(item.productId);
+            }
+        });
+
         const request = new OrderRequest(
-            order.items.map(({ productId, quantity }) => ({ productId, quantity })),
+            orderItems,
             order.name,
             order.user?.id
         );
 
         try {
             const createdOrder = await orderService.createOrder(request);
-            createToast('success', `Pour ${order.name} ${priceFormatter.format(createdOrder.total)}`);
+            createToast('success', `Commande validée pour ${order.name} ${priceFormatter.format(createdOrder.total)}`);
             dispatch(clearOrder());
         } catch (e) {
             createToast('error', e.response ? e.response.data.message : "Le serveur n'est pas disponible");

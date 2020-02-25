@@ -13,6 +13,11 @@ body {
     font-family: 'Lato', sans-serif;
 }
 
+.page-wrapper {
+    height: 100vh;
+    overflow-y: auto;
+}
+
 input, button {
     border: none;
     padding: 1em 2em;
@@ -53,6 +58,12 @@ button {
     &.secondary {
         color: #CD435F;
         border: 1px solid #CD435F;
+        
+        &:disabled {
+            background-color: transparent;
+            color: #BAB4B6;
+            border: 1px solid #BAB4B6;
+        }
     }
 
     &:focus {

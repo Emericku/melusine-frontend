@@ -16,10 +16,7 @@ export interface Order {
 export class OrderRequest {
 
     constructor(
-        public items: {
-            productId: string;
-            quantity: number;
-        }[],
+        public items: string[],
         public name: string,
         public userId?: string
     ) {}
@@ -29,4 +26,22 @@ export class OrderRequest {
 export interface OrderResponse {
     id: string;
     total: number;
+}
+
+export interface OrderItemResponse {
+    id: string;
+    orderId: string;
+    productName: string;
+    clientName: string;
+    ingredients: string[];
+    price: number;
+    status: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export enum OrderItemStatus {
+    PENDING = 'PENDING',
+    DELIVER = 'DELIVER',
+    CANCEL = 'CANCEL'
 }

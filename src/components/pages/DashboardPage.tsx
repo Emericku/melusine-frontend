@@ -2,6 +2,7 @@ import React, { FunctionComponent, useCallback } from 'react';
 import OrderPanel from '../layout/OrderPanel';
 import OrderSelection from '../layout/OrderSelection';
 import ClientSearch from '../layout/ClientSearch';
+import DeliveryPage from '../pages/DeliveryPage';
 import { RouteComponentProps, Route, NavLink, useHistory } from 'react-router-dom';
 import { useAuthExpirationRedirection } from '../../hooks';
 import { useAppState } from '../../store';
@@ -22,18 +23,22 @@ const DashboardPage: FunctionComponent<RouteComponentProps> = ({ match }) => {
         history.push('/');
     }, [ dispatch, history ]);
 
+    const isDashboardLinkActive = useCallback((m, location) => {
+         return ['/dashboard', '/dashboard/order'].includes(location.pathname)
+    }, []);
+
     return (
         <>
             <nav className="dashboard-menu">
-                <NavLink to="/dashboard">
+                <NavLink to="/dashboard" isActive={isDashboardLinkActive}>
                     <img className="brighten" src="/assets/icons/crossed-knife-and-fork.svg" alt="Fork and Knife" />
                     <span>Commande</span>
                 </NavLink>
 
-                <a href="/">
+                <NavLink to="/dashboard/delivery">
                     <img className="brighten" src="/assets/icons/food.svg" alt="Food" />
                     <span>Livraison</span>
-                </a>
+                </NavLink>
 
                 <a href="/">
                     <img className="brighten" src="/assets/icons/groceries.svg" alt="Products" />
@@ -55,6 +60,9 @@ const DashboardPage: FunctionComponent<RouteComponentProps> = ({ match }) => {
                 <main>
                     <Route exact path={`${match.path}`} component={ClientSearch} />
                     <Route exact path={`${match.path}/order`} component={OrderSelection} />
+                    <Route exact path={`${match.path}/delivery`}>
+                        <DeliveryPage withInteractions />
+                    </Route>
                 </main>
 
                 <Route exact path={`${match.path}/order`} component={OrderPanel} />

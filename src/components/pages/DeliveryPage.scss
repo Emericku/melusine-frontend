@@ -1,0 +1,54 @@
+.delivery {
+    padding: 1em;
+    $borderColor: darkgray;
+
+    & > .delivery-last-update {
+        color: $borderColor;
+    }
+
+    & > .delivery-pagination {
+        margin: 2em 0;
+        justify-content: center;
+
+        & > button {
+            width: 33.33%;
+        }
+    }
+
+    & > .delivery-order-items {
+        & > .delivery-order-item {
+            display: flex;
+            padding: 0.5em;
+            margin: 1em 0;
+            border: 1px solid rgba(0, 0, 0, 0.6);
+
+            & > .delivery-order-item-client, & > .delivery-order-item-product, & > .delivery-order-item-ingredients, & > .delivery-order-item-actions {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                overflow: hidden;
+            }
+
+            & > .delivery-order-item-client {
+                flex: 1 30%;
+            }
+
+            & > .delivery-order-item-product, & > .delivery-order-item-actions {
+                flex: 1 40%;
+            }
+
+            & > .delivery-order-item-ingredients {
+                flex: 1 100%;
+            }
+
+            & > .delivery-order-item-actions > button {
+                font-size: 2rem;
+                padding: 0 0.5em;
+                
+                &:first-child { color: green; }
+                &:last-child { color: red; }
+            }
+        }
+    }
+
+}

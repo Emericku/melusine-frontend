@@ -6,16 +6,16 @@ import { Typeahead } from '@gforge/react-typeahead-ts';
 import { UserSearchEntry } from '../../models/user.model';
 import userService from '../../services/user.service';
 import { initOrder } from '../../actions/order.actions';
+import { priceFormatter } from '../../utils';
 
 import './ClientSearch.scss';
-import { priceFormatter } from '../../utils';
 
 const ClientSearch: FunctionComponent = () => {
     const history = useHistory();
     const [ , dispatch ] = useAppState();
     const createToast = useToast();
     const [ results, setResults ] = useState<UserSearchEntry[]>([]);
-    const [ selected, setSelected ] = useState<UserSearchEntry | null>(null);    
+    const [ selected, setSelected ] = useState<UserSearchEntry>();    
     const autocompleteInput = useRef<HTMLInputElement | undefined>();
 
     useChangeTitle('Recherche');
@@ -25,7 +25,7 @@ const ClientSearch: FunctionComponent = () => {
     }, [ setSelected ]);
 
     const clearUser = useCallback(() => {
-        setSelected(null);
+        setSelected(undefined);
     }, [ setSelected ]);
 
     const searchUser = useCallback(async (e: FormEvent<HTMLInputElement>) => {
@@ -76,7 +76,8 @@ const ClientSearch: FunctionComponent = () => {
             return;
         }
 
-        dispatch(initOrder(value, selected && userExists() ? selected: undefined));
+        const clientName = userExists() ? selected?.nickName ? selected?.nickName: `${selected?.firstName} ${selected?.lastName}` : value;
+        dispatch(initOrder(clientName, selected && userExists() ? selected: undefined));
         history.push('/dashboard/order');
     }, [ history, selected, userExists, dispatch ]);
 
