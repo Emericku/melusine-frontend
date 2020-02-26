@@ -11,7 +11,7 @@ export const productsInitialState = {
 export default function productsReducer(prevState = productsInitialState, action: ProductsAction) {
     switch (action.type) {
         case ProductsActionType.FETCH_PRODUCTS_STARTED:
-            return { ...prevState, isLoading: true, error: '' };
+            return { ...prevState, isLoading: prevState.content.length === 0, error: '' };
 
         case ProductsActionType.FETCH_CATEGORIES:
             return { ...prevState, categories: action.categories };
