@@ -1,3 +1,5 @@
+import { Ingredient } from "./ingredient.model";
+
 export interface Product {
     id: string;
     name: string;
@@ -5,6 +7,7 @@ export interface Product {
     price?: number;
     quantity: number;
     image: string;
+    ingredients: Ingredient[];
 }
 
 export interface ProductCategory {

@@ -33,7 +33,8 @@ export default function orderReducer(prevState = orderInitialState, action: Orde
                     productId: action.productId,
                     name: action.name,
                     price: action.price,
-                    quantity: 1
+                    quantity: 1,
+                    ingredients: action.ingredients
                 });
             }
 

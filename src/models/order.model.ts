@@ -1,10 +1,12 @@
 import { UserSearchEntry } from "./user.model";
+import { Ingredient } from "./ingredient.model";
 
 export interface OrderItem {
     productId: string;
     name: string;
     price: number;
     quantity: number;
+    ingredients: Ingredient[];
 }
 
 export interface Order {

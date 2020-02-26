@@ -73,7 +73,7 @@ const OrderSelection: FunctionComponent = () => {
 
     const addItem = useCallback((product: Product) => {
         if (product.price) {
-            dispatch(addItemToOrder(product.id, product.name, product.price));
+            dispatch(addItemToOrder(product.id, product.name, product.price, product.ingredients));
         }
     }, [ dispatch ]);
 

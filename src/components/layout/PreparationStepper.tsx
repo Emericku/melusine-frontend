@@ -73,6 +73,7 @@ const PreparationStepper: FunctionComponent<PreparationStepperProps> = ({ origin
 
         try {
             const product = await productService.createProduct(request);
+            product.name = `${originalProduct.name} ${product.ingredients.map(({ name }) => name).join(' - ')}`;
             addItem(product);
         } catch (e) {
             createToast('error', e.response ? e.response.data.message : "Le serveur n'est pas disponible");
