@@ -4,46 +4,43 @@ aside.order-panel {
 
     background-color: #fff;
     box-shadow: -1px 0 3px rgba(0, 0, 0, 0.3);
-    
-    .pad {
-        padding: 0.5em 1em;
-    }
-
-    .pad-1 {
-        padding: 1em;
-    }
 
     & > header, .order-panel-validation {
         background-color: #F8F8F8;
     }
 
     & > header {
+        padding: 0.5em;
+
          h2 {
             font: Bold 28px Lato;
-        }
-
-        & > .order-panel-client {
-            margin: 1em 0;
         }
     }
 
     & > .order-panel-credit {
+        padding: 0.5em;
+        
         big {
             font-size: 1.8em;
             font-weight: bold;
         }
 
         & > button {
-            margin: 1em 0;
+            margin: 1em auto;
+            width: 85%;
         }
+    }
+
+    & > .order-panel-details {
+        padding: 0.5em 1em;
     }
 
     & > ul.order-panel-items {
         overflow-y: auto;
         list-style: none;
+        padding: 1em;
 
         & > li {
-            padding: 0.5em 0;
             font-weight: bold;
 
             & > .order-panel-item {
@@ -73,10 +70,15 @@ aside.order-panel {
         justify-content: flex-end;
 
         & > .order-panel-total {
+            padding: 0.5em;
             font-size: 2em;
 
             display: flex;
             justify-content: space-between;
+        }
+
+        & > .order-panel-validation {
+            padding: 0.5em;
         }
     }
 }

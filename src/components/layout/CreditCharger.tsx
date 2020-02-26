@@ -8,9 +8,10 @@ import userService from '../../services/user.service';
 import { creditOrderUser } from '../../actions/order.actions';
 
 const CreditCharger: FunctionComponent = () => {
+    const createToast = useToast();
     const [ { order }, dispatch ] = useAppState();
     const [ creditToAdd, setCreditToAdd ] = useState<number | ''>('');
-    const createToast = useToast();
+    const [ isSubmitting, setSubmitting ] = useState(false);
 
     const updateCreditToAdd = useCallback((e: FormEvent<HTMLInputElement>) => {
         const value = e.currentTarget.valueAsNumber;
@@ -18,13 +19,19 @@ const CreditCharger: FunctionComponent = () => {
     }, []);
 
     const isDisabled = useCallback(() => {
+        if (isSubmitting) {
+            return true;
+        }
+
         return creditToAdd === '' || creditToAdd <= 0;
-    }, [ creditToAdd ]);
+    }, [ isSubmitting, creditToAdd ]);
 
     const creditUser = useCallback(async () => {
         if (!order.user || creditToAdd === '') {
             return;
         }
+
+        setSubmitting(true);
 
         try {
             const userUpdated = await userService.creditUser(order.user.id, creditToAdd);
@@ -33,7 +40,9 @@ const CreditCharger: FunctionComponent = () => {
             setCreditToAdd('');
         } catch (e) {
             createToast('error', `Impossible de recharger le compte de ${order.name}`);
-        }
+        } finally {
+            setSubmitting(false);
+        } 
     }, [ order, creditToAdd, dispatch, createToast ]);
 
     return (

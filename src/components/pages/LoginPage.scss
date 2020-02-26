@@ -40,13 +40,13 @@
                 transform: translateY(-15em);
             }
     
-            input {
+            & > input {
                 width: 18em;
                 font-size: 1em;
                 margin: 1em 0;
             } 
     
-            button[type=submit] {
+            & > button[type=submit] {
                 margin: 1em 0;
                 max-width: 18em;
                 transform: translateY(3em);

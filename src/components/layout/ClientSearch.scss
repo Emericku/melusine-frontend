@@ -54,6 +54,8 @@
                 width: 100%;
                 border: 1px solid #4A4A4A;
                 font-size: 1rem;
+
+                &:focus { outline: none; }
             }
 
             & > .client-search-name-validation {

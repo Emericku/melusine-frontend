@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useCallback } from 'react';
+import React, { FunctionComponent, useEffect, useCallback, useState } from 'react';
 import { useAppState } from '../../store';
 import { useHistory } from 'react-router';
 import { useModal, useToast } from '../../hooks';
@@ -13,9 +13,10 @@ import './OrderPanel.scss';
 
 const OrderPanel: FunctionComponent = () => {
     const history = useHistory();
-    const [ { order }, dispatch ] = useAppState();
     const createToast = useToast();
+    const [ { order }, dispatch ] = useAppState();
     const { isModalOpened, toggleModal } = useModal();
+    const [ isSubmitting, setSubmitting ] = useState(false);
 
     useEffect(() => {
         if (order.name.length === 0) {
@@ -38,13 +39,17 @@ const OrderPanel: FunctionComponent = () => {
     }, [ dispatch ]);
 
     const isDisabled = useCallback(() => {
+        if (isSubmitting) {
+            return true;
+        }
+
         if (!order.user && order.items.length > 0 ) {
             return false;
         }
 
         const credit = order.user ? order.user.credit : 0;
         return order.items.length === 0 || computePrice() > credit;
-    }, [ order, computePrice ]);
+    }, [ isSubmitting, order, computePrice ]);
 
     const submitOrder = useCallback(async () => {
         const orderItems: string[] = [];
@@ -61,13 +66,17 @@ const OrderPanel: FunctionComponent = () => {
             order.user?.id
         );
 
+        setSubmitting(true);
+
         try {
             const createdOrder = await orderService.createOrder(request);
             createToast('success', `Commande validée pour ${order.name} ${priceFormatter.format(createdOrder.total)}`);
             dispatch(clearOrder());
         } catch (e) {
             createToast('error', e.response ? e.response.data.message : "Le serveur n'est pas disponible");
-        }
+        } finally {
+            setSubmitting(false);
+        }   
     }, [ order, dispatch, createToast ]);
 
     return (
@@ -78,7 +87,7 @@ const OrderPanel: FunctionComponent = () => {
                 </Modal>
             }
 
-            <header className="pad-1">
+            <header>
                 <div className="columns space-between">
                     <h2 className="primary">Commande :</h2>
 
@@ -98,9 +107,9 @@ const OrderPanel: FunctionComponent = () => {
             </header>
 
             {
-                order.user && <div className="order-panel-credit pad">
+                order.user && <div className="order-panel-credit">
                     <div className="columns space-around">
-                        <img src="/assets/icons/tirelire.svg" alt="Tirelire" />
+                        <img width="60em" src="/assets/icons/tirelire.svg" alt="Tirelire" />
 
                         <div>
                             <small>Solde disponible:</small>
@@ -119,13 +128,13 @@ const OrderPanel: FunctionComponent = () => {
 
             <hr/>
 
-            <div className="order-panel-details pad-1">
+            <div className="order-panel-details">
                 <p>Détail (<span className="primary">{order.items.length} article{order.items.length > 1 ? 's' : ''}</span>)</p>
             </div>
 
             <hr/>
 
-            <ul className="order-panel-items pad">
+            <ul className="order-panel-items">
                 {
                     order.items.map((item, index) => (
                         <li key={index} onClick={removeItem(item)}>
@@ -140,12 +149,12 @@ const OrderPanel: FunctionComponent = () => {
             </ul>
 
             <footer>
-                <div className="order-panel-total pad">
+                <div className="order-panel-total">
                     <span>Total:</span>
                     <span>{priceFormatter.format(computePrice())}</span>
                 </div>
 
-                <div className="order-panel-validation pad-1">
+                <div className="order-panel-validation">
                     <button className="primary columns space-button" type="button" onClick={submitOrder} disabled={isDisabled()}>
                         <span>Valider la commande</span>
                         <span><img width="20em" src="/assets/icons/left-arrow.svg" alt="Valider"/></span>

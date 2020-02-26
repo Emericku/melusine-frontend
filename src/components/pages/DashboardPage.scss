@@ -1,15 +1,19 @@
+$navHeight: 5em;
+
 nav.dashboard-menu {
+    height: $navHeight;
     background-color: #CD435F;
-    height: 6em;
+    overflow: hidden;
 
     display: flex;
     flex-direction: row;
+    align-items: center;
 
     & > a, button {
         color: #fff;
         flex: 1;
-        padding: 1em 2em;
-        font-size: 0.7rem;
+        padding: 1em 0;
+        font-size: 0.8rem;
         text-align: center;
 
         &.active {
@@ -18,12 +22,8 @@ nav.dashboard-menu {
 
         & > img {
             display: block;
-            margin: 1em auto;
-            height: 3em;
-        }
-
-        & > span {
-            font-size: 1.4em;
+            margin: 0.5em auto;
+            height: 2em;
         }
 
         &:focus {
@@ -38,12 +38,12 @@ nav.dashboard-menu {
 
     & > main {
         flex: 1 65%;
-        height: calc(100vh - 6em);
+        height: calc(100vh - #{$navHeight});
         overflow-y: auto;
     }
 
     & > aside {
         flex: 1 35%;
-        height: calc(100vh - 6em);
+        height: calc(100vh - #{$navHeight});
     }
 }

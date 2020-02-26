@@ -1,5 +1,4 @@
 .preparation-stepper {
-
     & > header, & > footer {
         height: 10vh;
     }
@@ -14,12 +13,12 @@
         & > h5 {
             font-size: 1.3em;
             font-weight: bold;
-            flex: 1 15%;
+            flex: 1 5%;
         }
 
         & > nav {
             display: flex;
-            flex: 1 85%;
+            flex: 1 95%;
             align-items: center;
             justify-content: center;
         
@@ -28,9 +27,9 @@
                 border: 2px solid #888787;
 
                 & > img {
-                    width: 3.2em;
-                    height: 3.2em;
-                    padding: 0.6em;
+                    width: 4em;
+                    height: 4em;
+                    padding: 0.8em;
                 }
 
                 &.current {
