@@ -30,7 +30,7 @@ const PreparationStepper: FunctionComponent<PreparationStepperProps> = ({ origin
                     if (acc[current.type]) {
                         acc[current.type].push(current);
                     } else {
-                        acc[current.type] = [current];
+                        acc[current.type] = [ current ];
                     }
 
                     return acc;
@@ -40,16 +40,12 @@ const PreparationStepper: FunctionComponent<PreparationStepperProps> = ({ origin
                 setCurrentType(Object.keys(categorizedIngredients)[0]);
             })
             .catch(e => createToast('error', e.response ? e.response.data.message : "Le serveur n'est pas disponible"))
-            .finally(() => setLoading(false))
+            .finally(() => setLoading(false));
     }, [ createToast ]);
 
     const goToStep = useCallback((ingredientType: string) => () => {
         setCurrentType(ingredientType);
     }, []);
-
-    const ingredientTypes = useMemo(() => {
-        return Object.keys(ingredients)
-    }, [ ingredients ]);
 
     const isInPreparation = useCallback((ingredient: Ingredient) => {
         return preparation.includes(ingredient);
@@ -83,17 +79,31 @@ const PreparationStepper: FunctionComponent<PreparationStepperProps> = ({ origin
         }
     }, [ originalProduct, preparation, addItem, createToast ]);
 
+    const ingredientTypes = useMemo(() => {
+        return Object.keys(ingredients)
+    }, [ ingredients ]);
+    
     const total = useMemo(
         () => preparation.reduce((acc, { price }) => acc + price, 0), 
         [ preparation ]
     );
+
+    useEffect(() => {
+        if (ingredientTypes.length > 0 && !preparation.some(ingredient => ingredient.type === 'BASE')) {
+            const allBases = ingredients['BASE'];
+    
+            if (allBases.length > 0) {
+                addOrRemoveFromPreparation(allBases[0])();
+            }
+        }
+    }, [ ingredientTypes, preparation, ingredients, addOrRemoveFromPreparation ]);
 
     return (
         isLoading ? 
             <div style={{ minHeight: '40vh', display: 'flex', alignItems: 'center' }}><Spinner /></div> :
             <div className="preparation-stepper">
                 <header>
-                    <h5 className="primary">Base</h5>
+                    <h5 className="primary">{currentType.toLowerCase()}</h5>
 
                     <nav>{
                         ingredientTypes.map((ingredientType, index, { length: last }) => (

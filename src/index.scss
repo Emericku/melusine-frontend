@@ -136,3 +136,19 @@ a {
 .brighten {
     filter: brightness(400%);
 }
+
+@media screen and (max-width: 892px) and (max-height: 414px), screen and (max-width: 414px) and (max-height: 892px) {
+    body {
+        display: none;
+    }
+
+    html:before {
+        content: 'Veuillez utiliser une tablette ou un ordinateur';
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        height: 100vh;
+        font-size: 3em;
+    }
+}

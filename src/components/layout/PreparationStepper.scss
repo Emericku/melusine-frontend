@@ -13,12 +13,13 @@
         & > h5 {
             font-size: 1.3em;
             font-weight: bold;
-            flex: 1 5%;
+            flex: 1 20%;
+            text-transform: capitalize;
         }
 
         & > nav {
             display: flex;
-            flex: 1 95%;
+            flex: 1 80%;
             align-items: center;
             justify-content: center;
         

@@ -46,6 +46,7 @@ aside.order-panel {
             & > .order-panel-item {
                 display: flex;
                 align-items: center;
+                padding: 0.2em 0;
 
                 & > *:first-child {
                     flex: 1 60%;

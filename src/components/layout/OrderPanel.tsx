@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useCallback, useState } from 'react';
+import React, { FunctionComponent, useEffect, useCallback, useState, useMemo } from 'react';
 import { useAppState } from '../../store';
 import { useHistory } from 'react-router';
 import { useModal, useToast } from '../../hooks';
@@ -24,12 +24,6 @@ const OrderPanel: FunctionComponent = () => {
         }
     }, [ order, history ]);
 
-    const computePrice = useCallback(() => {
-        return order.items
-            .map(({ quantity, price }) => quantity * price)
-            .reduce((a, b) => a + b, 0);
-    }, [ order ]);
-
     const removeItem = useCallback((item: OrderItem) => () => {
         dispatch(removeItemFromOrder(item.productId));
     }, [ dispatch ]);
@@ -38,6 +32,11 @@ const OrderPanel: FunctionComponent = () => {
         dispatch(resetOrder());
     }, [ dispatch ]);
 
+    const total = useMemo(
+        () => order.items.map(({ quantity, price }) => quantity * price).reduce((a, b) => a + b, 0),
+        [ order ]
+    );
+    
     const isDisabled = useCallback(() => {
         if (isSubmitting) {
             return true;
@@ -48,8 +47,8 @@ const OrderPanel: FunctionComponent = () => {
         }
 
         const credit = order.user ? order.user.credit : 0;
-        return order.items.length === 0 || computePrice() > credit;
-    }, [ isSubmitting, order, computePrice ]);
+        return order.items.length === 0 || total > credit;
+    }, [ isSubmitting, order, total ]);
 
     const submitOrder = useCallback(async () => {
         const orderItems: string[] = [];
@@ -151,7 +150,7 @@ const OrderPanel: FunctionComponent = () => {
             <footer>
                 <div className="order-panel-total">
                     <span>Total:</span>
-                    <span>{priceFormatter.format(computePrice())}</span>
+                    <span>{priceFormatter.format(total)}</span>
                 </div>
 
                 <div className="order-panel-validation">
