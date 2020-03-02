@@ -15,14 +15,14 @@ const ProductPage: FunctionComponent = () => {
     const refreshProducts = useCallback(() => {
         productService.getProducts()
             .then(response => setProducts(response))
-            .catch(e => createToast('error', e.response ? e.response.data.message : ""))
+            .catch(e => createToast('error', e.response ? e.response.data.message : "Le serveur n'est pas disponible"))
             .finally(() => setLoading(false));
     }, [createToast])
 
     useEffect(() => {
-            setLoading(true);
-            refreshProducts();
-        
+        setLoading(true);
+        refreshProducts();
+
     }, [refreshProducts]);
 
     const selectProduct = useCallback((product: Product) => {
@@ -38,7 +38,7 @@ const ProductPage: FunctionComponent = () => {
             <div className="product-list">
                 {isLoading ?
                     'Loading ...' :
-                        <ProductList products={products} selectProduct={selectProduct} />
+                    <ProductList products={products} selectProduct={selectProduct} />
                 }
             </div>
             <div className="product-form">

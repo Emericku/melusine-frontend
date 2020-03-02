@@ -22,7 +22,8 @@ const ProductForm: FunctionComponent<ProductFormProps> = (props) => {
     const refreshIngredients = useCallback(() => {
         ingredientService.getAllIngredients()
             .then(response => setIngredients(response))
-    }, [])
+            .catch(e => createToast('error', e.response ? e.response.data.message : "Le serveur n'est pas disponible"));
+    }, [createToast])
 
     useEffect(() => {
         refreshIngredients();

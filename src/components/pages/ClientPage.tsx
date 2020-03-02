@@ -17,7 +17,7 @@ const ClientPage: FunctionComponent = () => {
     const refreshUsers = useCallback(() => {
         userService.getUsers()
             .then(response => setUsers(response.content))
-            .catch(e => createToast('error', e.response ? e.response.data.message : ""))
+            .catch(e => createToast('error', e.response ? e.response.data.message : "Le serveur n'est pas disponible"))
             .finally(() => setLoading(false));
     }, [createToast])
 
