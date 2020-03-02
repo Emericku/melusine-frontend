@@ -1,48 +1,56 @@
-table {
-    border-collapse: collapse;
-    position: relative;
-    width: 100%;
-}
+.ingredient-list {
+    flex: 1 1;
+    height: 91.5vh;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5) inset;
+    overflow-y: auto;
 
-th {
-    padding-top: 5em;
-    position: -webkit-sticky !important;
-    position: sticky;
-    top: 1em;
-    position: sticky;
-    background: #FFFFFF;
+    table {
+        border-collapse: collapse;
+        position: relative;
+        width: 100%;
+    }
+    
+    th {
+        padding-top: 5em;
+        position: -webkit-sticky !important;
+        position: sticky;
+        top: 1em;
+        position: sticky;
+        background: #FFFFFF;
+    }
+    
+    th, td {
+        padding: 1em;
+        border-bottom: 1px solid #CD435F;;
+    }
+    
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+    
+    h3 {
+        text-align: center;
+        margin: 1em;
+    }
+    
+    .ingredient-last-name, .ingredient-first-name {
+        text-align: left;
+    }
+    
+    .ingredient-credit {
+        text-align: left;
+        color: #79BF3C;
+    }
+    
+    .ingredient-nick-name {
+        text-align: left;
+        color: #26A1CE;
+    }
+    
+    .ingredient-section {
+        text-align: left;
+        color: #ED6E35;
+    }
+    
+    
 }
-
-th, td {
-    padding: 1em;
-    border-bottom: 1px solid #CD435F;;
-}
-
-tr:hover {
-    background-color: #f5f5f5;
-}
-
-h3 {
-    text-align: center;
-    margin: 1em;
-}
-
-.ingredient-last-name, .ingredient-first-name {
-    text-align: left;
-}
-
-.ingredient-credit {
-    text-align: left;
-    color: #79BF3C;
-}
-
-.ingredient-nick-name {
-    text-align: left;
-    color: #26A1CE;
-}
-
-.ingredient-section {
-    text-align: left;
-    color: #ED6E35;
-}
-

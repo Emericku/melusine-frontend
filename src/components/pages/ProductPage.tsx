@@ -35,15 +35,11 @@ const ProductPage: FunctionComponent = () => {
 
     return (
         <div className="product-main">
-            <div className="product-list">
                 {isLoading ?
                     'Loading ...' :
                     <ProductList products={products} selectProduct={selectProduct} />
                 }
-            </div>
-            <div className="product-form">
                 <ProductForm selectedProduct={selctedProduct} resetProduct={resetProduct} refreshProducts={refreshProducts} />
-            </div>
         </div>
     );
 }

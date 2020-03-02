@@ -50,7 +50,7 @@ const ClientPage: FunctionComponent = () => {
 
     return (
         <div className="user-main">
-            <div className="user-list">
+            <div>
                 <div className="user-search-list">
                     <input
                         type="search"

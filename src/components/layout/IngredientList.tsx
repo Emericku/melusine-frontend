@@ -10,7 +10,7 @@ interface IngredientListProps {
 
 const IngredientList: FunctionComponent<IngredientListProps> = (props) => {
     return (
-        <div>
+        <div className="ingredient-list">
             <h3>Liste d'ingrédients</h3>
             <table>
                 <thead>

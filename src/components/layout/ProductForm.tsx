@@ -76,7 +76,7 @@ const ProductForm: FunctionComponent<ProductFormProps> = (props) => {
     }
 
     return (
-        <div>
+        <div className="product-form">
             <h3>{props.selectedProduct ? "Mettre à jour un produit" : "Créer un produit"}</h3>
             <Formik
                 initialValues={{
@@ -109,7 +109,6 @@ const ProductForm: FunctionComponent<ProductFormProps> = (props) => {
                         <form onSubmit={handleSubmit}>
                             <div className="line">
                                 <input
-
                                     id="name"
                                     name="name"
                                     type="text"
@@ -119,13 +118,14 @@ const ProductForm: FunctionComponent<ProductFormProps> = (props) => {
                                     required />
                             </div>
                             <div className="line">
-                                <label>Catégorie(s)</label>
+                                <label>Catégorie</label>
                                 <select
                                     id="category"
                                     onChange={handleChange}
                                     value={values.category}
-                                    placeholder="Catégorie"
-                                    required >
+                                    required
+                                    defaultValue="">
+                                    <option value="" disabled hidden>Choisir ici</option>
                                     {
                                         categoryMapping.map((category) => (
                                             <option key={category.value} value={category.value}>{category.label}</option>
@@ -152,49 +152,47 @@ const ProductForm: FunctionComponent<ProductFormProps> = (props) => {
                             <FieldArray
                                 name="ingredients"
                                 render={ingredientsOfProduct => (
-                                    <div className="line">
-                                        <div className="column">
-                                            <div className="line column-ingredients">
-                                                <label> Ingrédient(s) :</label>
-                                                {values.ingredients && values.ingredients.length > 0 ? (
-                                                    values.ingredients.map((ingredient, index) => (
-                                                        <li
-                                                            key={index}>
-                                                            <span>{ingredient.name}</span>
-                                                            <button
-                                                                type="button"
-                                                                onClick={() => ingredientsOfProduct.remove(index)}>
-                                                                X
+                                    <div>
+                                        <div className="line">
+                                            <label>Ingrédients :</label>
+                                            <select
+                                                onChange={onIngredientSelect(ingredientsOfProduct)}
+                                                defaultValue="">
+                                                <option value="" disabled hidden>Choisir ici</option>
+                                                {
+                                                    ingredients.map(i => <option key={i.id} value={i.name}> {i.name} </option>)
+                                                }</select>
+                                        </div>
+                                        <div className="line">
+                                            <label className="line">Ingrédient(s) :</label>
+                                            {values.ingredients && values.ingredients.length > 0 ? (
+                                                values.ingredients.map((ingredient, index) => (
+                                                    <ul className="column"
+                                                        key={index}>
+                                                        <span>{ingredient.name}</span>
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => ingredientsOfProduct.remove(index)}>
+                                                            X
                                                         </button>
-                                                        </li>
-                                                    ))
-                                                ) : (<i>Aucun ingrédient lié au produit</i>)}
-                                            </div>
-                                            <div className="line column-ingredients-selector">
-                                                <label>Ajouter un ingrédient :</label>
-
-                                                <select
-                                                    onChange={onIngredientSelect(ingredientsOfProduct)}
-                                                    defaultValue="">
-                                                    <option value="" disabled hidden>Choisir ici</option>
-                                                    {
-                                                        ingredients.map(i => <option key={i.id} value={i.name}> {i.name} </option>)
-                                                    }</select>
-                                            </div>
+                                                    </ul>
+                                                ))
+                                            ) : (<i>Aucun ingrédient lié au produit</i>)}
                                         </div>
 
                                         <div className="line">
-                                            <label>Ajouter une image : </label><br />
+                                            <label>Image : </label><br />
                                             <input
                                                 id="image"
                                                 name="image"
                                                 type="file"
                                                 onChange={(event) => {
-                                                    console.log('event value', event.currentTarget.files)
                                                     if (event.currentTarget.files) {
                                                         if (event.currentTarget.files[0].type === 'image/png') {
                                                             toBase64(event.currentTarget.files[0])
                                                                 .then(b64 => setFieldValue("image", b64));
+                                                        } else {
+                                                            createToast('error', "format *.png obligatoire")
                                                         }
                                                     }
                                                 }}
@@ -203,6 +201,7 @@ const ProductForm: FunctionComponent<ProductFormProps> = (props) => {
                                                 values.image && <img className="image"
                                                     src={`data:image/png;base64, ${values.image}`} alt={values.name} />
                                             }
+                                            <i>format *.png obligatoire</i>
                                         </div>
                                     </div>
                                 )}

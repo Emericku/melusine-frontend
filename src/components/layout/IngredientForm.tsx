@@ -85,7 +85,7 @@ const IngredientForm: FunctionComponent<IngredientFormProps> = (props) => {
     });
 
     return (
-        <div>
+        <div className="ingredient-form">
             <h3>{props.selectedIngredient ? "Mettre à jour un ingrédient" : "Créer un ingrédient"}</h3>
             <div className="ingredient-form">
                 <form onSubmit={formik.handleSubmit}>

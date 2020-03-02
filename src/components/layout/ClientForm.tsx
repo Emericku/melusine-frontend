@@ -111,7 +111,7 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
 
     return (
 
-        <div>
+        <div className="user-form">
             <h3>{props.selectedUser ? "Mettre à jour un utilisateur" : "Création"}</h3>
             <div className="line">
                 {!props.selectedUser && !isAdministratorCreation && <button

@@ -8,12 +8,11 @@ import { priceFormatter } from '../../utils';
 interface ClientListProps {
     users: UserResponse[];
     selectUser: (user: User) => void;
-
 }
 
 const ClientList: FunctionComponent<ClientListProps> = (props) => {
     return (
-        <div>
+        <div className="user-list">
             <h3>Liste de clients</h3>
             <table>
                 <thead>
