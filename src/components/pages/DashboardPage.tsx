@@ -3,6 +3,8 @@ import OrderPanel from '../layout/OrderPanel';
 import OrderSelection from '../layout/OrderSelection';
 import ClientSearch from '../layout/ClientSearch';
 import DeliveryPage from '../pages/DeliveryPage';
+import ProductPage from '../pages/ProductPage';
+import IngredientPage from '../pages/IngredientPage';
 import { RouteComponentProps, Route, NavLink, useHistory } from 'react-router-dom';
 import { useAuthExpirationRedirection } from '../../hooks';
 import { useAppState } from '../../store';
@@ -10,9 +12,10 @@ import { logoutUser } from '../../actions/session.actions';
 import authenticationService from '../../services/authentication.service';
 
 import './DashboardPage.scss';
+import ClientPage from './ClientPage';
 
 const DashboardPage: FunctionComponent<RouteComponentProps> = ({ match }) => {
-    const [ , dispatch ] = useAppState();
+    const [, dispatch] = useAppState();
     const history = useHistory();
 
     useAuthExpirationRedirection();
@@ -21,10 +24,10 @@ const DashboardPage: FunctionComponent<RouteComponentProps> = ({ match }) => {
         authenticationService.clear();
         dispatch(logoutUser());
         history.push('/');
-    }, [ dispatch, history ]);
+    }, [dispatch, history]);
 
     const isDashboardLinkActive = useCallback((m, location) => {
-         return ['/dashboard', '/dashboard/order'].includes(location.pathname)
+        return ['/dashboard', '/dashboard/order'].includes(location.pathname)
     }, []);
 
     return (
@@ -40,18 +43,23 @@ const DashboardPage: FunctionComponent<RouteComponentProps> = ({ match }) => {
                     <span>Livraison</span>
                 </NavLink>
 
-                <a href="/">
+                <NavLink to="/dashboard/products">
                     <img className="brighten" src="/assets/icons/groceries.svg" alt="Products" />
                     <span>Produits</span>
-                </a>
+                </NavLink>
 
-                <a href="/">
+                <NavLink to="/dashboard/ingredients">
+                    <img className="brighten" src="/assets/icons/harvest.svg" alt="Ingredients" />
+                    <span>Ingrédients</span>
+                </NavLink>
+
+                <NavLink to="/dashboard/clients">
                     <img className="brighten" src="/assets/icons/team.svg" alt="Clients" />
                     <span>Clients</span>
-                </a>
+                </NavLink>
 
                 <button type="button" onClick={logout}>
-                    <img className="brighten" src="/assets/icons/turn-off.svg" alt="Clients" />
+                    <img className="brighten" src="/assets/icons/turn-off.svg" alt="Deconnexion" />
                     <span>Déconnexion</span>
                 </button>
             </nav>
@@ -63,6 +71,9 @@ const DashboardPage: FunctionComponent<RouteComponentProps> = ({ match }) => {
                     <Route exact path={`${match.path}/delivery`}>
                         <DeliveryPage withInteractions />
                     </Route>
+                    <Route exact path={`${match.path}/products`} component={ProductPage} />
+                    <Route exact path={`${match.path}/ingredients`} component={IngredientPage} />
+                    <Route exact path={`${match.path}/clients`} component={ClientPage} />
                 </main>
 
                 <Route exact path={`${match.path}/order`} component={OrderPanel} />

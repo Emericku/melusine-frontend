@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useAppState } from '../../store';
 import { useChangeTitle, useToast } from '../../hooks';
 import { Typeahead } from '@gforge/react-typeahead-ts';
-import { UserSearchEntry } from '../../models/user.model';
+import { UserResponse } from '../../models/user.model';
 import userService from '../../services/user.service';
 import { initOrder } from '../../actions/order.actions';
 import { priceFormatter } from '../../utils';
@@ -14,14 +14,14 @@ const ClientSearch: FunctionComponent = () => {
     const history = useHistory();
     const [ , dispatch ] = useAppState();
     const createToast = useToast();
-    const [ results, setResults ] = useState<UserSearchEntry[]>([]);
-    const [ selected, setSelected ] = useState<UserSearchEntry>();    
+    const [ results, setResults ] = useState<UserResponse[]>([]);
+    const [ selected, setSelected ] = useState<UserResponse>();    
     const autocompleteInput = useRef<HTMLInputElement | undefined>();
 
     useChangeTitle('Recherche');
 
     const selectUser = useCallback((opt) => {
-        setSelected(opt as UserSearchEntry);
+        setSelected(opt as UserResponse);
     }, [ setSelected ]);
 
     const clearUser = useCallback(() => {
@@ -46,7 +46,7 @@ const ClientSearch: FunctionComponent = () => {
     }, [ clearUser, setResults, createToast ]);
 
     const renderUser = useCallback(({ firstName, lastName, nickName, credit }) => {
-        return `${firstName} ${lastName}${nickName ? ` dit ${nickName} (${priceFormatter.format(credit)})` : ''}`;
+        return `${firstName} ${lastName}${nickName ? ` dit ${nickName} (${priceFormatter.format(credit)})` : ` (${priceFormatter.format(credit)})`}`;
     }, []);
 
     const userExists = useCallback(() => {

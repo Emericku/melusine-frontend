@@ -1,0 +1,93 @@
+h3 {
+    margin: 1em;
+  }
+  
+  .ingredient-form {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
+
+  .line {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    text-align: left;
+    color: #4a4a4a;
+    margin: 0.15em;
+    padding: 1em;
+  
+    & > input {
+      background-color: transparent;
+      border-bottom: 1px solid #4a4a4a;
+      text-align: left;
+      padding: 0.5em 0;
+      color: #4a4a4a;
+      margin: 0.15em;
+      width: 80%;
+      font-size: 1rem;
+  
+      &:focus {
+        outline: none;
+      }
+    }
+  
+    & > select, option {
+      -webkit-appearance: none;
+      -webkit-border-radius: 0;
+      -moz-appearance: none;
+      border-radius: 0;
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #4a4a4a;
+      width: 80%;
+      text-align: left;
+      text-indent: 0em;
+      text-size-adjust: 1rem;
+      color: #4a4a4a;
+      & > option {
+        margin: 2em;
+      }
+    
+    }
+  
+    & > button {
+      border: 1px solid #b03951;
+      color: #ffffff;
+      border-radius: 4px;
+      background: #cd435f 0% 0% no-repeat padding-box;
+      margin: 0.5em;
+    }
+    & > i {
+      font-size: 0.8em;
+      color: #b03951;
+    }
+    & > label {
+      width: 100%;
+      font-size: 1.3em;
+      font-style: bold;
+      text-align: center;
+      margin: 0;
+    }
+  
+    & > li {
+      width: 50%
+    }
+  
+  }
+  
+  .ingredient-form-button-new {
+    border: 1px solid #b03951;
+    color: #ffffff;
+    border-radius: 4px;
+    margin: 4em;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background: #CD435F 0% 0% no-repeat padding-box;
+  }
+  
+  img {
+    width: 10%;
+  }

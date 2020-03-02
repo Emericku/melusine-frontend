@@ -1,0 +1,39 @@
+.ingredient-list {
+    flex: 1 1;
+    height: 91.5vh;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5) inset;
+    overflow-y: auto;
+  }
+  
+  .ingredient-form {
+    flex: 1 1;
+  }
+  
+  .ingredient-main {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .ingredient-search-list {
+      display: flex;
+      justify-content: center;
+      padding: 1em;
+  
+      & > input {
+          background-color: transparent;
+          border-bottom: 1px solid #4a4a4a;
+          text-align: left;
+          padding: 0.5em 0;
+          color: #4a4a4a;
+          margin: 0.15em;
+          width: 80%;
+          font-size: 1rem;
+  
+          &:focus {
+              outline: none;
+          }
+  
+        }
+  
+  }
+  

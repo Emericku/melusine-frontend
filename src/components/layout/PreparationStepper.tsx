@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState, useCallback, useMemo } from 'react';
 import { useToast } from '../../hooks';
-import { Product, ProductCreationRequest } from '../../models/product.model';
+import { Product, ProductRequest } from '../../models/product.model';
 import { priceFormatter } from '../../utils';
 import { Ingredient, CategorizedIngredients } from '../../models/ingredient.model';
 import ingredientService from '../../services/ingredient.service';
@@ -64,7 +64,7 @@ const PreparationStepper: FunctionComponent<PreparationStepperProps> = ({ origin
     }, [ isInPreparation, preparation ]);
 
     const createProduct = useCallback(async () => {
-        const request = new ProductCreationRequest(
+        const request = new ProductRequest(
             `${originalProduct.name} ${Date.now()}`,
             originalProduct.category,
             preparation.map(({ id }) => id),
@@ -130,7 +130,7 @@ const PreparationStepper: FunctionComponent<PreparationStepperProps> = ({ origin
                             className={`ingredient-item${ingredient.quantity === 0 ? ' empty': ''}${isInPreparation(ingredient) ? ' added': ''}`}
                             onClick={addOrRemoveFromPreparation(ingredient)}
                         >
-                            <img src={`data:image/svg+xml;base64, ${ingredient.image}`} alt={ingredient.name} />
+                            <img className="ingredient-item-icon" src={`data:image/svg+xml;base64, ${ingredient.image}`} alt={ingredient.name} />
                             <div className="ingredient-item-name">{ingredient.name}</div>
                             <strong>{priceFormatter.format(ingredient.price)}</strong>
                         </div>
