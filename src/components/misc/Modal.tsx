@@ -20,7 +20,7 @@ const Modal: FunctionComponent<ModalProps> = ({ title, children, close }) => {
                 <main>
                     {children}
                 </main>
-            </div>ﬂ
+            </div>
         </div>
     );
 }
