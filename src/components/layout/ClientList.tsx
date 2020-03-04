@@ -1,5 +1,5 @@
-import React, { FunctionComponent } from 'react';
-import { UserResponse, User } from '../../models/user.model';
+import React, { FunctionComponent, FormEvent } from 'react';
+import { UserResponse } from '../../models/user.model';
 
 import './ClientList.scss';
 import { sectionMapping } from '../../models/section.model';
@@ -7,12 +7,22 @@ import { priceFormatter } from '../../utils';
 
 interface ClientListProps {
     users: UserResponse[];
-    selectUser: (user: User) => void;
+    selectUser: (user: UserResponse) => void;
+    searchUser: (event: FormEvent<HTMLInputElement>) => void;
+    searchText: string;
 }
 
 const ClientList: FunctionComponent<ClientListProps> = (props) => {
     return (
         <div className="user-list">
+            <div className="user-search-list">
+                <input
+                    type="search"
+                    onChange={props.searchUser}
+                    value={props.searchText}
+                    placeholder="Rechercher un client"
+                />
+            </div>
             <h3>Liste de clients</h3>
             <table>
                 <thead>

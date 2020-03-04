@@ -15,7 +15,9 @@ export interface UserResponse {
     nickName: string;
     section: string;
     credit: number;
-    isMembership: boolean;
+    membership: boolean;
+    barman: boolean;
+    email?: string;
     createdAt: string;
     updatedAt: string;
 }
@@ -27,7 +29,7 @@ export interface User {
     nickName?: string;
     section: string;
     credit: number;
-    isMembership: boolean;
+    membership: boolean;
     account?: AccountRequest;
 }
 
@@ -37,7 +39,7 @@ export interface UserCreation {
     lastName: string;
     nickName: string;
     section: string;
-    isMembership: boolean;
+    membership: boolean;
 }
 
 export interface ConnectedUser {

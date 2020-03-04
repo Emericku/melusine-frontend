@@ -21,6 +21,7 @@ class UserService {
 
     async getUsers() : Promise<Page<UserResponse>> {
         const { data: page } = await axios.get<Page<UserResponse>>(`${config.backendUrl}/users`);
+        console.table(page.content)
         return page;
     };
 
@@ -35,7 +36,7 @@ class UserService {
             lastName: userRequest.lastName,
             nickName: userRequest.nickName,
             section : userRequest.section,
-            isMembership: userRequest.isMembership,
+            isMembership: userRequest.membership,
         }
         const { data : user} = await axios.put<UserResponse>(`${config.backendUrl}/users/${userRequest.id}`, body);
         return user;

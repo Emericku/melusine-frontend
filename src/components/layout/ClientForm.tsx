@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useCallback, useState } from 'react';
 import { useFormik } from 'formik';
-import { User, UserSearchEntry } from '../../models/user.model';
+import { User, UserResponse, UserSearchEntry } from '../../models/user.model';
 import { Section, sectionMapping } from '../../models/section.model';
 import userService from '../../services/user.service';
 import { useToast, useModal } from '../../hooks';
@@ -11,9 +11,10 @@ import CreditCharger from './CreditCharger';
 import { useAppState } from '../../store';
 import { initOrder, resetOrder } from '../../actions/order.actions';
 import { AccountRequest } from '../../models/account.model';
+import CreateAccount from './CreateAccount';
 
 interface ClientFormProps {
-    selectedUser?: User;
+    selectedUser?: UserResponse;
     resetUser: () => void;
     refreshUsers: () => void;
 }
@@ -23,6 +24,7 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
     const createToast = useToast();
     const { isModalOpened, toggleModal } = useModal();
     const { isModalOpened: isCreditModalOpened, toggleModal: toggleCreditModal } = useModal();
+    const { isModalOpened: isAccountModalOpened, toggleModal: toggleAccountModal } = useModal();
     const [isAdministratorCreation, setIsAdministratorCreation] = useState(false);
 
 
@@ -76,9 +78,10 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
             nickName: !props.selectedUser ? undefined : props.selectedUser.nickName,
             credit: !props.selectedUser ? undefined : props.selectedUser.credit,
             section: !props.selectedUser ? Section.FIRST : props.selectedUser.section,
-            isMembership: true,
-            email: !props.selectedUser ? undefined : props.selectedUser.account ? props.selectedUser.account.email : undefined,
-            password: !props.selectedUser ? undefined : props.selectedUser.account ? props.selectedUser.account.password : undefined,
+            membership: true,
+            email: !props.selectedUser ? undefined : props.selectedUser.email ? props.selectedUser.email : undefined,
+            password: undefined,
+            passwordConfirmation: undefined
         },
         onSubmit: values => {
             const accountToSave: AccountRequest = {
@@ -94,17 +97,20 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
                 nickName: values.nickName,
                 credit: values.credit ? values.credit : 0,
                 section: values.section,
-                isMembership: true,
-                account: isAdministratorCreation ? accountToSave : undefined
+                membership: true,
+                account: (isAdministratorCreation || props.selectedUser?.barman) ? accountToSave : undefined
             }
-
-            console.log('User', userToSave)
-            const save = userToSave.id ? updateUser(userToSave) : addUser(userToSave);
-
-            save.then(() => {
-                props.refreshUsers()
-                formik.resetForm();
-            });
+            if ((isAdministratorCreation || props.selectedUser?.barman) && values.password !== values.passwordConfirmation) {
+                createToast('error', "Les mot de passe ne sont pas identique")
+                return;
+            }
+            else {
+                const save = userToSave.id ? updateUser(userToSave) : addUser(userToSave);
+                save.then(() => {
+                    props.refreshUsers()
+                    formik.resetForm();
+                });
+            }
         },
         enableReinitialize: true
     });
@@ -114,11 +120,10 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
         <div className="user-form">
             <h3>{props.selectedUser ? "Mettre à jour un utilisateur" : "Création"}</h3>
             <div className="line">
-                {!props.selectedUser && !isAdministratorCreation && <button
+                {!isAdministratorCreation && !props.selectedUser && <button
                     type="button"
                     onClick={() => setIsAdministratorCreation(true)}>Créer un Respons' Bar</button>
                 }
-
                 {!props.selectedUser && isAdministratorCreation && <button
                     type="button"
                     onClick={() => setIsAdministratorCreation(false)}>Créer un client</button>
@@ -127,8 +132,7 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
 
             <div className="user-form">
                 {isAdministratorCreation !== undefined && <form onSubmit={formik.handleSubmit}>
-
-                    {!props.selectedUser && isAdministratorCreation && <div className="line">
+                    {(isAdministratorCreation && !props.selectedUser) && <div className="line">
                         <input
                             id="email"
                             name="email"
@@ -139,7 +143,7 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
                             required />
                     </div>
                     }
-                    {!props.selectedUser && isAdministratorCreation && <div className="line">
+                    {(isAdministratorCreation && !props.selectedUser) && <div className="line">
                         <input
                             id="password"
                             name="password"
@@ -147,6 +151,17 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
                             placeholder="Mot de passe"
                             onChange={formik.handleChange}
                             value={formik.values.password}
+                            required />
+                    </div>
+                    }
+                    {(isAdministratorCreation && !props.selectedUser) && <div className="line">
+                        <input
+                            id="passwordConfirmation"
+                            name="passwordConfirmation"
+                            type="password"
+                            placeholder="Confirmation"
+                            onChange={formik.handleChange}
+                            value={formik.values.passwordConfirmation}
                             required />
                     </div>
                     }
@@ -221,6 +236,15 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
                             type="button"
                             onClick={() => props.selectedUser && openCreditModal(props.selectedUser)}>Créditer</button>
                         }
+
+                        {props.selectedUser && !props.selectedUser?.barman && <button
+                            type="button"
+                            onClick={() => toggleAccountModal()}>Créer le compte </button>
+                        }
+                        {props.selectedUser?.barman && <button
+                            type="button"
+                            onClick={() => toggleAccountModal()}>Mettre à jour le compte</button>
+                        }
                     </div>
                     {
                         props.selectedUser && <button
@@ -248,8 +272,13 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
                         <CreditCharger />
                     </Modal>
                 }
+                {
+                    (isAccountModalOpened && props.selectedUser) && <Modal title={`Création de compte pour ${props.selectedUser.firstName} ${props.selectedUser.lastName}`} close={toggleAccountModal}>
+                        <CreateAccount user={props.selectedUser} />
+                    </Modal>
+                }
             </div>
-        </div>
+        </div >
     );
 }
 

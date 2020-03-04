@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState, useCallback, FormEvent } from 'react';
-import { User, UserResponse } from '../../models/user.model';
+import { UserResponse } from '../../models/user.model';
 import userService from '../../services/user.service';
 import ClientList from '../layout/ClientList';
 import ClientForm from '../layout/ClientForm';
@@ -12,7 +12,7 @@ const ClientPage: FunctionComponent = () => {
     const [searchText, setSearchText] = useState("");
     const [isLoading, setLoading] = useState(false);
     const [users, setUsers] = useState<UserResponse[]>([]);
-    const [selctedUser, setSelectedUser] = useState<User>();
+    const [selctedUser, setSelectedUser] = useState<UserResponse>();
 
     const refreshUsers = useCallback(() => {
         userService.getUsers()
@@ -28,7 +28,7 @@ const ClientPage: FunctionComponent = () => {
         }
     }, [searchText, refreshUsers]);
 
-    const selectUser = useCallback((user: User) => {
+    const selectUser = useCallback((user: UserResponse) => {
         setSelectedUser(user)
     }, [])
 
@@ -44,29 +44,17 @@ const ClientPage: FunctionComponent = () => {
         }
         userService.findByName(inputUser)
             .then(response => setUsers(response))
-            .catch(e => createToast('error', e.response ? e.response.data.message : ""))
+            .catch(e => console.log('error', e))
             .finally(() => setLoading(false))
-    }, [createToast]);
+    }, []);
 
     return (
         <div className="user-main">
-            <div>
-                <div className="user-search-list">
-                    <input
-                        type="search"
-                        onChange={searchUser}
-                        value={searchText}
-                        placeholder="Rechercher un client"
-                    />
-                </div>
                 {isLoading ?
                     'Loading ...' :
-                        <ClientList users={users} selectUser={selectUser} />
+                        <ClientList users={users} selectUser={selectUser} searchUser={searchUser} searchText={searchText} />
                 }
-            </div>
-            <div className="user-form">
                 <ClientForm selectedUser={selctedUser} resetUser={resetUser} refreshUsers={refreshUsers} />
-            </div>
         </div>
     );
 }
