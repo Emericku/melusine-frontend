@@ -31,15 +31,9 @@ const App: FunctionComponent = () => {
                         <DeliveryPage withInteractions={false} />
                     </div>
                 </Route>
-                <Route exact path="/products">
-                    <ProductPage />
-                </Route>                
-                <Route exact path="/ingredients">
-                    <IngredientPage />
-                </Route>
-                <Route exact path="/clients">
-                    <ClientPage />
-                </Route>
+                <AuthenticatedRoute exact path="/products" component={ProductPage} />
+                <AuthenticatedRoute exact path="/ingredients" component={IngredientPage} />
+                <AuthenticatedRoute exact path="/clients" component={ClientPage} />
             </Router>
         </AppStateProvider>
     );
