@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useCallback, useState, useEffect, FormEvent } from 'react';
 import { FieldArray, Formik, FieldArrayRenderProps } from 'formik';
-import { Product, ProductRequest, Category, categoryMapping } from '../../models/product.model';
+import { Product, ProductRequest, categoryMapping } from '../../models/product.model';
 import { Ingredient } from '../../models/ingredient.model';
 import productService from '../../services/product.service';
 import ingredientService from '../../services/ingredient.service';
@@ -18,6 +18,7 @@ const ProductForm: FunctionComponent<ProductFormProps> = (props) => {
     const createToast = useToast();
     const { isModalOpened, toggleModal } = useModal();
     const [ingredients, setIngredients] = useState<Ingredient[]>([]);
+    const [isSavedClicked, setSavedClicked] = useState(false);
 
     const refreshIngredients = useCallback(() => {
         ingredientService.getAllIngredients()
@@ -27,8 +28,8 @@ const ProductForm: FunctionComponent<ProductFormProps> = (props) => {
 
     useEffect(() => {
         refreshIngredients();
-
-    }, [refreshIngredients]);
+        if (props.selectedProduct) setSavedClicked(false);
+    }, [refreshIngredients, props.selectedProduct]);
 
     const addProduct = useCallback((product: ProductRequest) => {
         return productService.createProduct(product)
@@ -81,30 +82,37 @@ const ProductForm: FunctionComponent<ProductFormProps> = (props) => {
             <Formik
                 initialValues={{
                     name: !props.selectedProduct ? '' : props.selectedProduct.name,
-                    price: !props.selectedProduct ? undefined : props.selectedProduct.price,
-                    category: !props.selectedProduct ? Category.FROID : props.selectedProduct.category,
-                    image: !props.selectedProduct ? undefined : props.selectedProduct.image,
+                    price: !props.selectedProduct ? 0 : props.selectedProduct.price,
+                    category: !props.selectedProduct ? undefined : props.selectedProduct.category,
+                    image: !props.selectedProduct ? '' : props.selectedProduct.image,
                     ingredients: !props.selectedProduct ? [] : props.selectedProduct.ingredients
                 }}
                 onSubmit={(values) => {
-                    const productToSave: ProductRequest = {
-                        id: props.selectedProduct ? props.selectedProduct.id : '',
-                        name: values.name,
-                        price: values.price,
-                        category: values.category,
-                        image: values.image,
-                        ingredients: values.ingredients.map(i => i.id),
-                        isOriginal: true
+                    if (!isSavedClicked) {
+                        if (values.category) {
+                            setSavedClicked(true);
+                            const productToSave: ProductRequest = {
+                                id: props.selectedProduct ? props.selectedProduct.id : '',
+                                name: values.name,
+                                price: values.price,
+                                category: values.category,
+                                image: values.image,
+                                ingredients: values.ingredients.map(i => i.id),
+                                isOriginal: true
+                            }
+
+                            const save = productToSave.id ? updateProduct(productToSave) : addProduct(productToSave);
+
+                            save.then(() => {
+                                props.refreshProducts()
+                            });
+                        } else {
+                            createToast('error', "La catégorie est obligatoire");
+                        }
                     }
-
-                    const save = productToSave.id ? updateProduct(productToSave) : addProduct(productToSave);
-
-                    save.then(() => {
-                        props.refreshProducts()
-                    });
                 }}
                 enableReinitialize={true}
-                render={({ values, handleChange, handleSubmit, setFieldValue }) => (
+                render={({ values, handleChange, handleSubmit, setFieldValue, resetForm }) => (
                     <div className="product-form">
                         <form onSubmit={handleSubmit}>
                             <div className="line">
@@ -208,18 +216,30 @@ const ProductForm: FunctionComponent<ProductFormProps> = (props) => {
                             />
 
                             <div className="line">
-                                <button
+                                {!isSavedClicked && <button
                                     type="submit">Enregistrer</button>
+                                }
+
+                                { isSavedClicked && <button
+                                    className="disabled"
+                                    type="submit"
+                                    disabled>Enregistrer</button>
+                                }
                                 <button
                                     type="button"
                                     hidden={props.selectedProduct === undefined}
                                     onClick={toggleModal}>Supprimer</button>
                             </div>
                             {
-                                props.selectedProduct && <button
+                                (props.selectedProduct || isSavedClicked) && <button
                                     className="product-form-button-new"
                                     type="button"
-                                    onClick={props.resetProduct}>Nouveau</button>
+                                    onClick={() => {
+                                        props.resetProduct();
+                                        resetForm();
+                                        setSavedClicked(false);
+                                    }}
+                                >Nouveau</button>
                             }
                         </form>
                     </div>

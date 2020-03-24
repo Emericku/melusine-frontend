@@ -62,6 +62,11 @@
       background: #cd435f 0% 0% no-repeat padding-box;
       margin: 0.5em;
     }
+    & > .disabled {
+      border: 1px solid grey;
+      background: grey 0% 0% no-repeat padding-box;
+    }
+
     & > i {
       font-size: 0.8em;
       color: #b03951;
@@ -83,13 +88,12 @@
     justify-content: left;
 
     & > span {
-      padding: 1.2em; 
+      padding: 1.2em;
     }
 
     & > button:hover {
       background-color: #f5f5f5;
     }
-    
   }
 
   .product-form-button-new {

@@ -1,6 +1,6 @@
-import React, { FunctionComponent, useCallback } from 'react';
+import React, { FunctionComponent, useCallback, useState, useEffect } from 'react';
 import { useFormik } from 'formik';
-import { Ingredient, IngredientType, ingredientTypeMapping } from '../../models/ingredient.model';
+import { Ingredient, ingredientTypeMapping } from '../../models/ingredient.model';
 import ingredientService from '../../services/ingredient.service';
 import { useToast, useModal } from '../../hooks';
 import './IngredientForm.scss';
@@ -15,6 +15,11 @@ interface IngredientFormProps {
 const IngredientForm: FunctionComponent<IngredientFormProps> = (props) => {
     const createToast = useToast();
     const { isModalOpened, toggleModal } = useModal();
+    const [isSavedClicked, setSavedClicked] = useState(false);
+
+    useEffect(() => {
+        if (props.selectedIngredient) setSavedClicked(false);
+    }, [props.selectedIngredient]);
 
     const addIngredient = useCallback((ingredient: Ingredient) => {
         return ingredientService.createIngredient(ingredient)
@@ -61,25 +66,32 @@ const IngredientForm: FunctionComponent<IngredientFormProps> = (props) => {
             name: !props.selectedIngredient ? '' : props.selectedIngredient.name,
             price: !props.selectedIngredient ? 0 : props.selectedIngredient.price,
             quantity: !props.selectedIngredient ? 0 : props.selectedIngredient.quantity,
-            type: !props.selectedIngredient ? IngredientType.BASE : props.selectedIngredient.type,
-            image: !props.selectedIngredient ? undefined : props.selectedIngredient.image
+            type: !props.selectedIngredient ? undefined : props.selectedIngredient.type,
+            image: !props.selectedIngredient ? '' : props.selectedIngredient.image
         },
         onSubmit: values => {
-            const ingredientToSave: Ingredient = {
-                id: props.selectedIngredient ? props.selectedIngredient.id : '',
-                name: values.name,
-                price: values.price,
-                type: values.type,
-                quantity: values.quantity,
-                image: values.image
+            if (!isSavedClicked) {
+                setSavedClicked(true);
+                if (values.type) {
+                    const ingredientToSave: Ingredient = {
+                        id: props.selectedIngredient ? props.selectedIngredient.id : '',
+                        name: values.name,
+                        price: values.price,
+                        type: values.type,
+                        quantity: values.quantity,
+                        image: values.image
+                    }
+
+                    const save = ingredientToSave.id ? updateIngredient(ingredientToSave) : addIngredient(ingredientToSave);
+
+                    save.then(() => {
+                        props.refreshIngredients()
+                        formik.resetForm();
+                    });
+                } else {
+                    createToast('error', "Le type est obligatoire");
+                }
             }
-
-            const save = ingredientToSave.id ? updateIngredient(ingredientToSave) : addIngredient(ingredientToSave);
-
-            save.then(() => {
-                props.refreshIngredients()
-                formik.resetForm();
-            });
         },
         enableReinitialize: true
     });
@@ -106,9 +118,11 @@ const IngredientForm: FunctionComponent<IngredientFormProps> = (props) => {
                             onChange={formik.handleChange}
                             value={formik.values.type}
                             name="type"
-                            required>
+                            defaultValue=""
+                            required>                                    >
+                            <option value="" disabled hidden>Choisir ici</option>
                             {
-                                ingredientTypeMapping.map(type =><option key={type.value} value={type.value}>{type.label}</option>)
+                                ingredientTypeMapping.map(type => <option key={type.value} value={type.value}>{type.label}</option>)
                             }
                         </select>
                     </div>
@@ -165,18 +179,29 @@ const IngredientForm: FunctionComponent<IngredientFormProps> = (props) => {
                     </div>
 
                     <div className="line">
-                        <button
+                        {!isSavedClicked && <button
                             type="submit">Enregistrer</button>
+                        }
+
+                        {isSavedClicked && <button
+                            className="disabled"
+                            type="submit"
+                            disabled>Enregistrer</button>
+                        }
                         <button
                             type="button"
                             hidden={props.selectedIngredient === undefined}
                             onClick={toggleModal}>Supprimer</button>
                     </div>
                     {
-                        props.selectedIngredient && <button
+                        (props.selectedIngredient || isSavedClicked) && <button
                             className="ingredient-form-button-new"
                             type="button"
-                            onClick={props.resetIngredient}>Nouveau</button>
+                            onClick={() => {
+                                props.resetIngredient();
+                                formik.resetForm();
+                                setSavedClicked(false);
+                            }}>Nouveau</button>
                     }
                 </form>
                 {
