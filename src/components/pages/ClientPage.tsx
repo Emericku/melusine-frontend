@@ -5,6 +5,7 @@ import ClientList from '../layout/ClientList';
 import ClientForm from '../layout/ClientForm';
 import './ClientPage.scss';
 import { useToast } from '../../hooks';
+import Spinner from '../misc/Spinner';
 
 const ClientPage: FunctionComponent = () => {
     const createToast = useToast();
@@ -51,7 +52,7 @@ const ClientPage: FunctionComponent = () => {
     return (
         <div className="user-main">
                 {isLoading ?
-                    'Loading ...' :
+                    <Spinner /> :
                         <ClientList users={users} selectUser={selectUser} searchUser={searchUser} searchText={searchText} />
                 }
                 <ClientForm selectedUser={selctedUser} resetUser={resetUser} refreshUsers={refreshUsers} />

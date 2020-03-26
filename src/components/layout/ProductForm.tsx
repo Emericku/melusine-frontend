@@ -1,12 +1,13 @@
 import React, { FunctionComponent, useCallback, useState, useEffect, FormEvent } from 'react';
 import { FieldArray, Formik, FieldArrayRenderProps } from 'formik';
-import { Product, ProductRequest, categoryMapping } from '../../models/product.model';
+import { Product, ProductRequest, categoryMapping, productDefaultImage } from '../../models/product.model';
 import { Ingredient } from '../../models/ingredient.model';
 import productService from '../../services/product.service';
 import ingredientService from '../../services/ingredient.service';
 import { useToast, useModal } from '../../hooks';
 import './ProductForm.scss';
 import Modal from '../misc/Modal';
+import authenticationService from '../../services/authentication.service';
 
 interface ProductFormProps {
     selectedProduct?: Product;
@@ -84,7 +85,7 @@ const ProductForm: FunctionComponent<ProductFormProps> = (props) => {
                     name: !props.selectedProduct ? '' : props.selectedProduct.name,
                     price: !props.selectedProduct ? 0 : props.selectedProduct.price,
                     category: !props.selectedProduct ? undefined : props.selectedProduct.category,
-                    image: !props.selectedProduct ? '' : props.selectedProduct.image,
+                    image: !props.selectedProduct ? undefined : props.selectedProduct.image,
                     ingredients: !props.selectedProduct ? [] : props.selectedProduct.ingredients
                 }}
                 onSubmit={(values) => {
@@ -96,7 +97,7 @@ const ProductForm: FunctionComponent<ProductFormProps> = (props) => {
                                 name: values.name,
                                 price: values.price,
                                 category: values.category,
-                                image: values.image,
+                                image: values.image ? values.image : productDefaultImage,
                                 ingredients: values.ingredients.map(i => i.id),
                                 isOriginal: true
                             }
@@ -220,15 +221,15 @@ const ProductForm: FunctionComponent<ProductFormProps> = (props) => {
                                     type="submit">Enregistrer</button>
                                 }
 
-                                { isSavedClicked && <button
+                                {isSavedClicked && <button
                                     className="disabled"
                                     type="submit"
                                     disabled>Enregistrer</button>
                                 }
-                                <button
+                                {authenticationService.getConnectedUser().isAdmin && <button
                                     type="button"
                                     hidden={props.selectedProduct === undefined}
-                                    onClick={toggleModal}>Supprimer</button>
+                                    onClick={toggleModal}>Supprimer</button>}
                             </div>
                             {
                                 (props.selectedProduct || isSavedClicked) && <button

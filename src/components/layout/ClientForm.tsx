@@ -12,6 +12,7 @@ import { useAppState } from '../../store';
 import { initOrder, resetOrder } from '../../actions/order.actions';
 import { AccountRequest } from '../../models/account.model';
 import CreateAccount from './CreateAccount';
+import authenticationService from '../../services/authentication.service';
 
 interface ClientFormProps {
     selectedUser?: UserResponse;
@@ -131,11 +132,11 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
         <div className="user-form">
             <h3>{props.selectedUser ? "Mettre à jour un utilisateur" : "Création"}</h3>
             <div className="line">
-                {!isAdministratorCreation && !props.selectedUser && <button
+                {!isAdministratorCreation && !props.selectedUser && authenticationService.getConnectedUser().isAdmin && <button
                     type="button"
                     onClick={() => setIsAdministratorCreation(true)}>Créer un Respons' Bar</button>
                 }
-                {!props.selectedUser && isAdministratorCreation && <button
+                {!props.selectedUser && isAdministratorCreation && authenticationService.getConnectedUser().isAdmin && <button
                     type="button"
                     onClick={() => setIsAdministratorCreation(false)}>Créer un client</button>
                 }
@@ -247,7 +248,7 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
                             disabled>Enregistrer</button>
                         }
 
-                        {props.selectedUser && <button
+                        {props.selectedUser && authenticationService.getConnectedUser().isAdmin && <button
                             type="button"
                             onClick={toggleModal}>Supprimer</button>
                         }
@@ -257,11 +258,11 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
                             onClick={() => props.selectedUser && openCreditModal(props.selectedUser)}>Créditer</button>
                         }
 
-                        {props.selectedUser && !props.selectedUser?.barman && <button
+                        {props.selectedUser && !props.selectedUser?.barman && authenticationService.getConnectedUser().isAdmin && <button
                             type="button"
                             onClick={() => toggleAccountModal()}>Créer le compte </button>
                         }
-                        {props.selectedUser?.barman && <button
+                        {props.selectedUser?.barman && authenticationService.getConnectedUser().isAdmin && <button
                             type="button"
                             onClick={() => toggleAccountModal()}>Mettre à jour le compte</button>
                         }

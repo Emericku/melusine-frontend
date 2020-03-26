@@ -12,7 +12,7 @@ export default function sessionReducer(prevState = sessionInitialState, action: 
             return { isAuthenticated: true, connectedUser: action.connectedUser };
 
         case SessionActionType.LOGOUT:
-            return { isAuthenticated: false, connectedUser: { id: '', email: '' } };
+            return { isAuthenticated: false, connectedUser: { id: '', email: '', isAdmin: false } };
 
         default:
             return prevState;

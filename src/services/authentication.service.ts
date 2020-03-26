@@ -69,12 +69,15 @@ class AuthenticationService {
         if (this.claims) {
             return {
                 id: this.claims.sub,
-                email: this.claims.email
+                email: this.claims.email,
+                isAdmin: this.claims.isAdmin
+
             };
         } else {
             return {
                 id: '',
-                email: ''
+                email: '',
+                isAdmin: false
             };
         }
     }

@@ -45,4 +45,5 @@ export interface UserCreation {
 export interface ConnectedUser {
     id: string;
     email: string;
+    isAdmin: boolean
 }

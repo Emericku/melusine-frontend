@@ -5,6 +5,7 @@ import IngredientList from '../layout/IngredientList';
 import IngredientForm from '../layout/IngredientForm';
 import './IngredientPage.scss';
 import { useToast } from '../../hooks';
+import Spinner from '../misc/Spinner';
 
 const IngredientPage: FunctionComponent = () => {
     const createToast = useToast();
@@ -37,7 +38,7 @@ const IngredientPage: FunctionComponent = () => {
         <div className="ingredient-main">
             <div className="ingredient-list">
                 {isLoading ?
-                    'Loading ...' :
+                    <Spinner /> :
                         <IngredientList ingredients={ingredients} selectIngredient={selectIngredient} />
                 }
             </div>

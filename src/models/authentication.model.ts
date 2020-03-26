@@ -7,4 +7,5 @@ export interface AuthenticationClaims {
     exp: number;
     sub: string;
     email: string;
+    isAdmin: boolean;
 }

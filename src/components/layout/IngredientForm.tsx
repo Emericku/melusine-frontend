@@ -1,10 +1,11 @@
 import React, { FunctionComponent, useCallback, useState, useEffect } from 'react';
 import { useFormik } from 'formik';
-import { Ingredient, ingredientTypeMapping } from '../../models/ingredient.model';
+import { Ingredient, ingredientTypeMapping, ingredientDefaultImage } from '../../models/ingredient.model';
 import ingredientService from '../../services/ingredient.service';
 import { useToast, useModal } from '../../hooks';
 import './IngredientForm.scss';
 import Modal from '../misc/Modal';
+import authenticationService from '../../services/authentication.service';
 
 interface IngredientFormProps {
     selectedIngredient?: Ingredient;
@@ -67,7 +68,7 @@ const IngredientForm: FunctionComponent<IngredientFormProps> = (props) => {
             price: !props.selectedIngredient ? 0 : props.selectedIngredient.price,
             quantity: !props.selectedIngredient ? 0 : props.selectedIngredient.quantity,
             type: !props.selectedIngredient ? undefined : props.selectedIngredient.type,
-            image: !props.selectedIngredient ? '' : props.selectedIngredient.image
+            image: !props.selectedIngredient ? undefined : props.selectedIngredient.image
         },
         onSubmit: values => {
             if (!isSavedClicked) {
@@ -79,7 +80,7 @@ const IngredientForm: FunctionComponent<IngredientFormProps> = (props) => {
                         price: values.price,
                         type: values.type,
                         quantity: values.quantity,
-                        image: values.image
+                        image: values.image ? values.image : ingredientDefaultImage
                     }
 
                     const save = ingredientToSave.id ? updateIngredient(ingredientToSave) : addIngredient(ingredientToSave);
@@ -174,7 +175,7 @@ const IngredientForm: FunctionComponent<IngredientFormProps> = (props) => {
                         <i>format *.svg obligatoire</i>
 
                         {
-                            formik.values.image && < img src={`data:image/svg+xml;base64, ${formik.values.image}`} alt={formik.values.name} />
+                            (formik.values.image) && < img src={`data:image/svg+xml;base64, ${formik.values.image}`} alt={formik.values.name} />
                         }
                     </div>
 
@@ -188,10 +189,10 @@ const IngredientForm: FunctionComponent<IngredientFormProps> = (props) => {
                             type="submit"
                             disabled>Enregistrer</button>
                         }
-                        <button
+                        { authenticationService.getConnectedUser().isAdmin && <button
                             type="button"
                             hidden={props.selectedIngredient === undefined}
-                            onClick={toggleModal}>Supprimer</button>
+                            onClick={toggleModal}>Supprimer</button>}
                     </div>
                     {
                         (props.selectedIngredient || isSavedClicked) && <button

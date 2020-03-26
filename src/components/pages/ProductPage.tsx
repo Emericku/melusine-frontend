@@ -5,6 +5,7 @@ import ProductList from '../layout/ProductList';
 import ProductForm from '../layout/ProductForm';
 import './ProductPage.scss';
 import { useToast } from '../../hooks';
+import Spinner from '../misc/Spinner';
 
 const ProductPage: FunctionComponent = () => {
     const createToast = useToast();
@@ -36,7 +37,7 @@ const ProductPage: FunctionComponent = () => {
     return (
         <div className="product-main">
                 {isLoading ?
-                    'Loading ...' :
+                    <Spinner /> :
                     <ProductList products={products} selectProduct={selectProduct} />
                 }
                 <ProductForm selectedProduct={selctedProduct} resetProduct={resetProduct} refreshProducts={refreshProducts} />
