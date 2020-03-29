@@ -23,7 +23,6 @@ const ProductPage: FunctionComponent = () => {
     useEffect(() => {
         setLoading(true);
         refreshProducts();
-
     }, [refreshProducts]);
 
     const selectProduct = useCallback((product: Product) => {
@@ -34,13 +33,14 @@ const ProductPage: FunctionComponent = () => {
         setSelectedProduct(undefined);
     }, []);
 
+
     return (
         <div className="product-main">
-                {isLoading ?
-                    <Spinner /> :
-                    <ProductList products={products} selectProduct={selectProduct} />
-                }
-                <ProductForm selectedProduct={selctedProduct} resetProduct={resetProduct} refreshProducts={refreshProducts} />
+            {isLoading ?
+                <Spinner /> :
+                <ProductList products={products} selectProduct={selectProduct} />
+            }
+            <ProductForm selectedProduct={selctedProduct} resetProduct={resetProduct} refreshProducts={refreshProducts} />
         </div>
     );
 }

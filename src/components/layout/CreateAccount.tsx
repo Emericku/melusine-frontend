@@ -32,7 +32,6 @@ const CreateAccount: FunctionComponent<CreateAccountProps> = (props) => {
             passwordConfirmation: undefined
         },
         onSubmit: values => {
-            console.log(values)
             const accountToSave: AccountRequest = {
                 clientId: props.user.id,
                 email: values.email,

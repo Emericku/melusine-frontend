@@ -21,7 +21,6 @@ class UserService {
 
     async getUsers() : Promise<Page<UserResponse>> {
         const { data: page } = await axios.get<Page<UserResponse>>(`${config.backendUrl}/users`);
-        console.table(page.content)
         return page;
     };
 
