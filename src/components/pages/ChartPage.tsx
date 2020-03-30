@@ -113,7 +113,7 @@ const ClientPage: FunctionComponent = () => {
                                     title="Chiffre d'affaire"
                                     data={revenuesData}
                                     abscissaName="Temps"
-                                    ordinateName="Euro"
+                                    ordinateName="Euros"
                                 />
                             }
                             {
@@ -122,7 +122,7 @@ const ClientPage: FunctionComponent = () => {
                                     title="Chiffre d'affaire"
                                     data={revenuesData}
                                     abscissaName="Temps"
-                                    ordinateName="Euro"
+                                    ordinateName="Euros"
                                 />}
                             {
                                 chartTypeRevenues === ChartType.PIE && <Chart
@@ -130,7 +130,7 @@ const ClientPage: FunctionComponent = () => {
                                     title="Chiffre d'affaire"
                                     data={revenuesData}
                                     abscissaName="Temps"
-                                    ordinateName="Euro"
+                                    ordinateName="Euros"
                                 />
                             }
                             {
@@ -194,27 +194,27 @@ const ClientPage: FunctionComponent = () => {
                                 {
                                     chartTypeConsumptions === ChartType.BAR && consumptionsData.points.length > 0 && <Chart
                                         type={ChartType.BAR}
-                                        title="Consomation de produit"
+                                        title="Consommation de produits"
                                         data={consumptionsData}
-                                        abscissaName="Temps"
+                                        abscissaName="Produit"
                                         ordinateName="Nombre"
                                     />
                                 }
                                 {
                                     chartTypeConsumptions === ChartType.LINE && consumptionsData.points.length > 0 && <Chart
                                         type={ChartType.LINE}
-                                        title="Consomation de produit"
+                                        title="Consommation de produits"
                                         data={consumptionsData}
-                                        abscissaName="Temps"
+                                        abscissaName="Produit"
                                         ordinateName="Nombre"
                                     />
                                 }
                                 {
                                     chartTypeConsumptions === ChartType.PIE && consumptionsData.points.length > 0 && <Chart
                                         type={ChartType.PIE}
-                                        title="Consomation de produit"
+                                        title="Consommation de produits"
                                         data={consumptionsData}
-                                        abscissaName="Temps"
+                                        abscissaName="Produit"
                                         ordinateName="Nombre"
                                     />
                                 }
