@@ -1,4 +1,71 @@
 .chart-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 1em;
+  font-weight: bold;
+  flex-wrap: wrap;
+
+  & > .nav-button {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    padding: 0em;
+
+    & > button {
+        margin: 0.2em;
+    }
   }
+}
+
+.chart-items {
+  display: flex;
+  flex-direction: row;
+  background-color: #fff;
+  padding: 1em;
+  font-weight: bold;
+  flex-wrap: wrap;
+
+}
+
+.select-chart-type-button {
+    display: flex;
+    flex-direction: row;
+    position: static;
+    top: 0;
+    left: 0;
+    margin: 1em 1em;
+
+    & > .chart-type-button {
+        width: 3em;
+        padding: 0.5em 0.5em;
+    }
+
+}
+
+
+
+.chart-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1em 1em;
+  box-shadow: -1px 0 3px rgba(0, 0, 0, 0.3);
+
+  & > .nav-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1em;
+
+    & > .trash-button {
+        margin-left: 1em;
+    }
+
+    & > button {
+        margin: 0.2em;
+    }
+  }
+
+}

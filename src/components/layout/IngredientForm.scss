@@ -58,6 +58,14 @@
       background: #cd435f 0% 0% no-repeat padding-box;
       margin: 0.5em;
     }
+    & > button:hover {
+      background-color: #b53b54;
+    }
+  
+    & > button:active {
+      transform: translateY(1px);
+      background-color: #b53b54;
+    }
     & > .disabled {
       border: 1px solid grey;
       background: grey 0% 0% no-repeat padding-box;
@@ -85,6 +93,15 @@
     bottom: 0;
     right: 0;
     background: #cd435f 0% 0% no-repeat padding-box;
+  }
+
+  .ingredient-form-button-new:hover {
+    background-color: #b53b54;
+  }
+
+  .ingredient-form-button-new:active {
+    transform: translateY(1px);
+    background-color: #b53b54;
   }
 
   img {

@@ -1,156 +1,188 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-html, body {
-    height: 100%;
+html,
+body {
+  height: 100%;
 }
 
 body {
-    overflow: hidden;
-    font-family: 'Lato', sans-serif;
+  overflow: hidden;
+  font-family: "Lato", sans-serif;
 }
 
 .page-wrapper {
-    height: 100vh;
-    overflow-y: auto;
+  height: 100vh;
+  overflow-y: auto;
 }
 
-input, button {
-    border: none;
-    padding: 1em 2em;
-    background: none;
+input,
+button {
+  border: none;
+  padding: 1em 2em;
+  background: none;
 }
 
 input {
-    background-color: #fff;
+  background-color: #fff;
 }
 
-small, big {
-    display: block;
+small,
+big {
+  display: block;
 }
 
 hr {
-    margin: 0 1rem ;
-    border: 0;
-    height: 1px;
-    background: rgba(0, 0, 0, 0.15);
+  margin: 0 1rem;
+  border: 0;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.15);
 }
 
 .primary {
-    color: #CD435F;
+  color: #cd435f;
 }
 
 button {
-    cursor:pointer;
+  cursor: pointer;
 
-    &.primary, &.secondary {
-        width: 100%;
-        border-radius: 3px;
-        font-size: 1rem;
-    }
+  &.primary:hover {
+    background-color: #b53b54;
+  }
 
-    &.primary {
-        color: #fff;
-        background-color: #CD435F;
-    }
+  &.primary:active {
+    transform: translateY(1px);
+    background-color: #b53b54;
+  }
 
-    &.secondary {
-        color: #CD435F;
-        border: 1px solid #CD435F;
-        
-        &:disabled {
-            background-color: transparent;
-            color: #BAB4B6;
-            border: 1px solid #BAB4B6;
-        }
-    }
+  &.secondary:hover {
+    background-color: #F0F0F0;
+  }
 
-    &:focus {
-        outline: none;
-    }
+  &.secondary:active {
+    transform: translateY(1px);
+    background-color: #F0F0F0;
+  }
+
+  &.primary,
+  &.secondary {
+    width: 100%;
+    border-radius: 3px;
+    font-size: 1rem;
+  }
+
+  &.primary {
+    color: #fff;
+    background-color: #cd435f;
+  }
+
+  &.secondary {
+    color: #cd435f;
+    border: 1px solid #cd435f;
 
     &:disabled {
-        background-color: #BAB4B6;
+      background-color: transparent;
+      color: #bab4b6;
+      border: 1px solid #bab4b6;
     }
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    background-color: #bab4b6;
+  }
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .columns {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 
-    &.space-around {
-        justify-content: space-around;
-    }
+  &.space-around {
+    justify-content: space-around;
+  }
 
-    &.space-between {
-        justify-content: space-between;
-    }
+  &.space-between {
+    justify-content: space-between;
+  }
 
-    &.space-button > * {
-        &:first-child { flex: 1 85%; }
-        &:last-child { flex: 1 15%; }
+  &.space-button > * {
+    &:first-child {
+      flex: 1 85%;
     }
+    &:last-child {
+      flex: 1 15%;
+    }
+  }
 
-    &.space-button-reverse > * {
-        &:first-child { flex: 1 15%; }
-        &:last-child { flex: 1 85%; }
+  &.space-button-reverse > * {
+    &:first-child {
+      flex: 1 15%;
     }
+    &:last-child {
+      flex: 1 85%;
+    }
+  }
 }
 
 .decorations {
-    &:before, &:after {
-        content: '';
-        position: absolute;
-        margin: 2em;
-        width: 10em;
-        height: 8em;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    margin: 2em;
+    width: 10em;
+    height: 8em;
 
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
-    }
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
 
-    &:before {
-        top: 0;
-        left: 0;
-        background-image: url('/assets/icons/decoration-steak.svg');
-    }
+  &:before {
+    top: 0;
+    left: 0;
+    background-image: url("/assets/icons/decoration-steak.svg");
+  }
 
-    &:after {
-        bottom: 0;
-        right: 0;
-        background-image: url('/assets/icons/decoration-brochette.svg');
-    }
+  &:after {
+    bottom: 0;
+    right: 0;
+    background-image: url("/assets/icons/decoration-brochette.svg");
+  }
 }
 
 .mirror {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .brighten {
-    filter: brightness(400%);
+  filter: brightness(400%);
 }
 
-@media screen and (max-width: 892px) and (max-height: 414px), screen and (max-width: 414px) and (max-height: 892px) {
-    body {
-        display: none;
-    }
+@media screen and (max-width: 892px) and (max-height: 414px),
+  screen and (max-width: 414px) and (max-height: 892px) {
+  body {
+    display: none;
+  }
 
-    html:before {
-        content: 'Veuillez utiliser une tablette ou un ordinateur';
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        height: 100vh;
-        font-size: 3em;
-    }
+  html:before {
+    content: "Veuillez utiliser une tablette ou un ordinateur";
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    font-size: 3em;
+  }
 }

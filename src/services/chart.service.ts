@@ -1,11 +1,11 @@
 import axios from "axios";
 import config from "../config";
-import { ChartRequest, ChartResponse } from "../models/chart.models";
+import { ChartRequest, ChartResponse, ChartTopic, } from "../models/chart.models";
 
 class ChartService {
 
-    async findChart(request: ChartRequest): Promise<ChartResponse> {
-        const { data: response } = await axios.post<ChartResponse>(`${config.backendUrl}/charts`, request);
+    async findChart(request: ChartRequest, topic: ChartTopic): Promise<ChartResponse> {
+        const { data: response } = await axios.post<ChartResponse>(`${config.backendUrl}/charts/${topic.toString()}`, request);
         return response;
     }
 
