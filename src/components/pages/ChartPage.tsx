@@ -135,7 +135,7 @@ const ClientPage: FunctionComponent = () => {
                             }
                             {
                                 revenuesData.points.length === 0 &&
-                                <h3>Aucune données trouvées</h3>
+                                <h3>Aucune donnée trouvée</h3>
                             }
                         </div>
                     </div>
@@ -219,7 +219,7 @@ const ClientPage: FunctionComponent = () => {
                                     />
                                 }
                                 {
-                                    consumptionsData.points.length === 0 && <h3>Aucune données trouvées</h3>
+                                    consumptionsData.points.length === 0 && <h3>Aucune donnée trouvée</h3>
                                 }
                             </div>
                         </div>
