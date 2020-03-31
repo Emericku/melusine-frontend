@@ -5,66 +5,70 @@
   background-color: #fff;
   padding: 1em;
   font-weight: bold;
-  flex-wrap: wrap;
 
   & > .nav-button {
     display: flex;
     flex-direction: row;
-    align-items: center;
     padding: 0em;
 
     & > button {
-        margin: 0.2em;
+      margin: 0.2em;
     }
+  }
+}
+
+.select-chart-type-button {
+  display: flex;
+  flex-direction: column;
+  position: static;
+  top: 0;
+  left: 0;
+  margin: 1em 1em;
+
+  & > .chart-type-button {
+    width: 3em;
+    padding: 0.5em 0.5em;
   }
 }
 
 .chart-items {
   display: flex;
-  flex-direction: row;
-  background-color: #fff;
-  align-items: center;
-  padding: 1em;
-  font-weight: bold;
+  justify-content: space-between;
   flex-wrap: wrap;
-  flex: 1 1;
-}
+  background-color: #fff;
 
-.select-chart-type-button {
-    display: flex;
-    flex-direction: row;
-    position: static;
-    top: 0;
-    left: 0;
-    margin: 1em 2em;
+  & > .chart-item {
+    flex: 0 1 45%;
+    margin: 1em 1em;
+    box-shadow: -1px 0 3px rgba(0, 0, 0, 0.3);
 
-    & > .chart-type-button {
-        width: 3em;
-        padding: 0.5em 0.5em;
-    }
+    & > .nav-button {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 1em;
 
-}
-
-.chart-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 1em 1em;
-  box-shadow: -1px 0 3px rgba(0, 0, 0, 0.3);
-
-  & > .nav-button {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 1em;
-
-    & > .trash-button {
+      & > .trash-button {
         margin-left: 1em;
-    }
+      }
 
-    & > button {
+      & > button {
         margin: 0.2em;
+      }
+
+      & > .select-chart-type-button {
+        display: flex;
+        flex-direction: column;
+        position: static;
+        top: 0;
+        left: 0;
+        margin: 1em 1em;
+
+        & > .chart-type-button {
+          width: 3em;
+          padding: 0.5em 0.5em;
+        }
+      }
     }
   }
-
 }

@@ -84,7 +84,7 @@ const ClientPage: FunctionComponent = () => {
                 <Spinner /> :
                 <div className="chart-items">
                     {revenuesData && revenuesData.points.length > 0 && <div className="chart-item">
-                        <div>
+                        <div className="nav-buttons">
                             <div className="select-chart-type-button">
                                 {
                                     typeMapping.map((mapValue) => (
@@ -144,6 +144,28 @@ const ClientPage: FunctionComponent = () => {
                     {
                         consumptionsData && <div className="chart-item">
                             <div className="nav-button">
+                                <div className="select-chart-type-button">
+                                    {
+                                        typeMapping.map((mapValue) => (
+                                            chartTypeConsumptions === mapValue.value ?
+                                                <button
+                                                    key={mapValue.value}
+                                                    className="secondary disabled chart-type-button"
+                                                    type="button"
+                                                    onClick={() => setChartTypeConsumptions(mapValue.value)}
+                                                    disabled>
+                                                    <img width="20em" src={mapValue.img} alt={mapValue.label} />
+                                                </button> :
+                                                <button
+                                                    key={mapValue.value}
+                                                    className="secondary chart-type-button"
+                                                    type="button"
+                                                    onClick={() => setChartTypeConsumptions(mapValue.value)}>
+                                                    <img width="20em" src={mapValue.img} alt={mapValue.label} />
+                                                </button>
+                                        ))
+                                    }
+                                </div>
                                 {
                                     categoryMapping.map((category) => (
                                         requestedCategory.includes(category.value) ?
@@ -168,28 +190,6 @@ const ClientPage: FunctionComponent = () => {
                                 </button>
                             </div>
                             <div>
-                                <div className="select-chart-type-button">
-                                    {
-                                        typeMapping.map((mapValue) => (
-                                            chartTypeConsumptions === mapValue.value ?
-                                                <button
-                                                    key={mapValue.value}
-                                                    className="secondary disabled chart-type-button"
-                                                    type="button"
-                                                    onClick={() => setChartTypeConsumptions(mapValue.value)}
-                                                    disabled>
-                                                    <img width="20em" src={mapValue.img} alt={mapValue.label} />
-                                                </button> :
-                                                <button
-                                                    key={mapValue.value}
-                                                    className="secondary chart-type-button"
-                                                    type="button"
-                                                    onClick={() => setChartTypeConsumptions(mapValue.value)}>
-                                                    <img width="20em" src={mapValue.img} alt={mapValue.label} />
-                                                </button>
-                                        ))
-                                    }
-                                </div>
 
                                 {
                                     chartTypeConsumptions === ChartType.BAR && consumptionsData.points.length > 0 && <Chart
