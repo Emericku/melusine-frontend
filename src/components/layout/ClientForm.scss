@@ -63,7 +63,7 @@
     & > button:hover {
       background-color: #b53b54;
     }
-  
+
     & > button:active {
       transform: translateY(1px);
       background-color: #b53b54;
@@ -89,23 +89,25 @@
   }
 
   .user-form-button-new {
-    border: 1px solid #b03951;
-    color: #ffffff;
-    border-radius: 4px;
     margin: 4em;
     position: fixed;
-    background: #cd435f 0% 0% no-repeat padding-box;
     bottom: 0;
     right: 0;
-  }
+    & > button {
+      background: #cd435f 0% 0% no-repeat padding-box;
+      border: 1px solid #b03951;
+      color: #ffffff;
+      border-radius: 4px;
+      margin : 0 0 0 1em;
+    }
 
-  .user-form-button-new:hover {
-    background-color: #b53b54;
-  }
+    & > button:hover {
+      background-color: #b53b54;
+    }
 
-  .user-form-button-new:active {
-    background-color: #b53b54;
-    transform: translateY(1px);
+    & > button:active {
+      background-color: #b53b54;
+      transform: translateY(1px);
+    }
   }
-
 }

@@ -189,7 +189,7 @@ const ClientPage: FunctionComponent = () => {
                                     <img width="20em" src="/assets/icons/trash.svg" alt="Enlever les filtres" />
                                 </button>
                             </div>
-                            <div>
+                            <div className="chart">
 
                                 {
                                     chartTypeConsumptions === ChartType.BAR && consumptionsData.points.length > 0 && <Chart

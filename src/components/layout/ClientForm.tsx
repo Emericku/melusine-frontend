@@ -26,6 +26,7 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
     const { isModalOpened, toggleModal } = useModal();
     const { isModalOpened: isCreditModalOpened, toggleModal: toggleCreditModal } = useModal();
     const { isModalOpened: isAccountModalOpened, toggleModal: toggleAccountModal } = useModal();
+    const { isModalOpened: isImportUserModalOpened, toggleModal: toggleImportUserModal } = useModal();
     const [isAdministratorCreation, setIsAdministratorCreation] = useState(false);
     const [isSavedClicked, setSavedClicked] = useState(false);
 
@@ -55,6 +56,18 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
                 .catch(e => createToast('error', e.response ? e.response.data.message : ""));
         }
     }, [createToast, toggleModal])
+
+    const importCsvUser = useCallback((file: any) => {
+        return userService.importUser(file)
+            .then(r => createToast('success', `Utilisateurs importés`))
+            .catch(e => createToast('error', e.response ? e.response.data.message : ""));
+    }, [createToast]);
+
+    const exportCsvUser = useCallback(() => {
+        return userService.exportUser()
+            .then(r => createToast('success', `Utilisateurs exportés`))
+            .catch(e => createToast('error', e.response ? e.response.data.message : ""));
+    }, [createToast]);
 
     const openCreditModal = useCallback((user: User) => {
         if (user.id) {
@@ -125,6 +138,16 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
             }
         },
         enableReinitialize: true
+    });
+
+    const importCsv = useFormik({
+        initialValues: {
+            file: undefined
+        },
+        onSubmit: values => {
+            console.log('import csv')
+            importCsvUser(values.file);
+        }
     });
 
     return (
@@ -267,9 +290,12 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
                             onClick={() => toggleAccountModal()}>Mettre à jour le compte</button>
                         }
                     </div>
+
+                </form>
+                }
+                <div className="user-form-button-new">
                     {
                         (props.selectedUser || isSavedClicked) && <button
-                            className="user-form-button-new"
                             type="button"
                             onClick={() => {
                                 props.resetUser();
@@ -277,8 +303,12 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
                                 setSavedClicked(false);
                             }}>Nouveau</button>
                     }
-                </form>
-                }
+                    {
+                        authenticationService.getConnectedUser().isAdmin && <button
+                            type="button"
+                            onClick={() => toggleImportUserModal()}>Importer/Exporter</button>
+                    }
+                </div>
                 {
                     (isModalOpened && props.selectedUser) && <Modal title={`Voulez-vous supprimer ${props.selectedUser.firstName} ${props.selectedUser.lastName} des clients ?`} close={toggleModal}>
                         <div
@@ -300,6 +330,42 @@ const ClientForm: FunctionComponent<ClientFormProps> = (props) => {
                 {
                     (isAccountModalOpened && props.selectedUser) && <Modal title={`Création de compte pour ${props.selectedUser.firstName} ${props.selectedUser.lastName}`} close={toggleAccountModal}>
                         <CreateAccount user={props.selectedUser} />
+                    </Modal>
+                }
+                {
+                    isImportUserModalOpened && authenticationService.getConnectedUser().isAdmin && <Modal
+                        title={`Importer/exporter des utilisateurs`}
+                        close={toggleImportUserModal}>
+                        <form
+                            className="user-form"
+                            onSubmit={importCsv.handleSubmit}>
+                            <div className="line">
+                                <label>Importer des utilisateurs <i>(Les utilisateurs existant ne seront pas remplacés)</i> : </label><br />
+                                <input
+                                    id="file"
+                                    name="file"
+                                    type="file"
+                                    onChange={(event) => {
+                                        if (event.currentTarget.files) {
+                                            if (event.currentTarget.files[0].type === 'text/csv') {
+                                                importCsv.setFieldValue("file", event.currentTarget.files[0]);
+                                            } else {
+                                                createToast('error', "format *.csv obligatoire")
+                                            }
+                                        }
+                                    }}
+                                />
+                                
+                                <i>format *.csv obligatoire</i>
+                            </div>
+                            <div className="line">
+                                <button type="submit"
+                                    className="primary">Importer</button>
+                                <button type="button"
+                                    onClick={() => exportCsvUser()}
+                                    className="primary">Exporter</button>
+                            </div>
+                        </form>
                     </Modal>
                 }
             </div>
