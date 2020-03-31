@@ -23,10 +23,11 @@
   display: flex;
   flex-direction: row;
   background-color: #fff;
+  align-items: center;
   padding: 1em;
   font-weight: bold;
   flex-wrap: wrap;
-
+  flex: 1 1;
 }
 
 .select-chart-type-button {
@@ -35,7 +36,7 @@
     position: static;
     top: 0;
     left: 0;
-    margin: 1em 1em;
+    margin: 1em 2em;
 
     & > .chart-type-button {
         width: 3em;
@@ -43,8 +44,6 @@
     }
 
 }
-
-
 
 .chart-item {
   display: flex;
